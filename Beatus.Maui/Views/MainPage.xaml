@@ -3,77 +3,83 @@
     x:Class="Beatus.Maui.Views.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    BackgroundImageSource="bg.jpg">
+    xmlns:mct="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
+    BackgroundImageSource="bg.jpg"
+    Shell.NavBarIsVisible="False">
+    <ContentPage.Behaviors>
+        <mct:StatusBarBehavior StatusBarColor="#050705"/>
+    </ContentPage.Behaviors>
     <ScrollView>
-        <Grid RowDefinitions="Auto,*"
-              Margin="20">
-                <VerticalStackLayout
-                Grid.Row="0"
-                Spacing="6">
-                    <HorizontalStackLayout Spacing="6">
-                        <Image HeightRequest="40" Source="beatus_logo.png"
-                           VerticalOptions="Center"/>
-                        <Label
-                    FontAttributes="Bold"
-                    FontSize="30"
-                    Text="Beatus"
-                    TextColor="White" 
-                        VerticalOptions="Center"/>
-                    </HorizontalStackLayout>
+        <Grid Margin="20" RowDefinitions="Auto,*">
+            <VerticalStackLayout Grid.Row="0" Spacing="6">
+                <HorizontalStackLayout Spacing="6">
+                    <Image
+                        HeightRequest="40"
+                        Source="beatus_logo.png"
+                        VerticalOptions="Center" />
                     <Label
+                        FontAttributes="Bold"
+                        FontSize="30"
+                        Text="Beatus"
+                        TextColor="White"
+                        VerticalOptions="Center" />
+                </HorizontalStackLayout>
+                <Label
                     FontSize="Medium"
                     Text="Plant leaf disease detection tool"
-                    TextColor="White"/>
-                </VerticalStackLayout>
-            
-            
-                <VerticalStackLayout Grid.Row="1" VerticalOptions="Center"
-                                  Spacing="5">
+                    TextColor="White" />
+            </VerticalStackLayout>
+
+
+            <VerticalStackLayout
+                Grid.Row="1"
+                Spacing="5"
+                VerticalOptions="Center">
 
                 <Label
                     FontSize="Small"
                     Text="Please choose a clear image of a leaf for the app to predict the type of disease."
-                    TextColor="White"/>
+                    TextColor="White" />
                 <Border
                     Margin="0"
                     Padding="50"
                     BackgroundColor="Black"
+                    IsVisible="False"
                     Opacity=".7"
                     Stroke="#162416"
-                    StrokeThickness="3"
-                         IsVisible="False">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="4,4,4,4" />
-                        </Border.StrokeShape>
-                        <Image
+                    StrokeThickness="3">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="4,4,4,4" />
+                    </Border.StrokeShape>
+                    <Image
                         HeightRequest="200"
-                        WidthRequest="200"
                         HorizontalOptions="Center"
+                        IsVisible="False"
                         Opacity="1"
                         Source="img_placeholder.png"
-                        VerticalOptions="Center" 
-                            IsVisible="False"/>
-                    </Border>
-                    <Button
-                    BackgroundColor="#243B24"
-                    BorderWidth="3"
-                    BorderColor="#162416"
+                        VerticalOptions="Center"
+                        WidthRequest="200" />
+                </Border>
+                <Button
                     Margin="0,4"
+                    BackgroundColor="#243B24"
+                    BorderColor="#162416"
+                    BorderWidth="3"
+                    FontSize="20"
                     HeightRequest="60"
-                        FontSize="20"
                     Text="Choose Photo"
                     TextColor="White" />
-                    <Button
+                <Button
                     BackgroundColor="#243B24"
-                    BorderWidth="3"
-                        FontSize="20"
                     BorderColor="#162416"
+                    BorderWidth="3"
+                    FontSize="20"
                     HeightRequest="60"
                     Text="Make Prediction"
                     TextColor="White" />
-                </VerticalStackLayout>
-            </Grid>
-            <!--#8C836B-->
+            </VerticalStackLayout>
+        </Grid>
+        <!--  #8C836B  -->
     </ScrollView>
 
 </ContentPage>
