@@ -1,75 +1,79 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="Beatus.Maui.MainPage"
+    x:Class="Beatus.Maui.Views.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     BackgroundImageSource="bg.jpg">
-
     <ScrollView>
         <Grid RowDefinitions="Auto,*"
               Margin="20">
-            <VerticalStackLayout
+                <VerticalStackLayout
                 Grid.Row="0"
                 Spacing="6">
-                <HorizontalStackLayout Spacing="6">
-                    <Image HeightRequest="40" Source="beatus_logo.png"
+                    <HorizontalStackLayout Spacing="6">
+                        <Image HeightRequest="40" Source="beatus_logo.png"
                            VerticalOptions="Center"/>
-                    <Label
+                        <Label
                     FontAttributes="Bold"
                     FontSize="30"
                     Text="Beatus"
                     TextColor="White" 
                         VerticalOptions="Center"/>
-                </HorizontalStackLayout>
-                <Label
+                    </HorizontalStackLayout>
+                    <Label
                     FontSize="Medium"
                     Text="Plant leaf disease detection tool"
                     TextColor="White"/>
-            </VerticalStackLayout>
-            <VerticalStackLayout Grid.Row="1" VerticalOptions="Center"
+                </VerticalStackLayout>
+            
+            
+                <VerticalStackLayout Grid.Row="1" VerticalOptions="Center"
                                   Spacing="5">
 
                 <Label
                     FontSize="Small"
                     Text="Please choose a clear image of a leaf for the app to predict the type of disease."
                     TextColor="White"/>
-                
                 <Border
                     Margin="0"
                     Padding="50"
-                    BackgroundColor="#404040"
-                    Opacity=".9"
-                    Stroke="#404040"
-                    StrokeThickness="3">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="4,4,4,4" />
-                    </Border.StrokeShape>
-                    <Image
+                    BackgroundColor="Black"
+                    Opacity=".7"
+                    Stroke="#162416"
+                    StrokeThickness="3"
+                         IsVisible="False">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="4,4,4,4" />
+                        </Border.StrokeShape>
+                        <Image
                         HeightRequest="200"
                         WidthRequest="200"
                         HorizontalOptions="Center"
                         Opacity="1"
                         Source="img_placeholder.png"
-                        VerticalOptions="Center" />
-                </Border>
-                <Button
+                        VerticalOptions="Center" 
+                            IsVisible="False"/>
+                    </Border>
+                    <Button
                     BackgroundColor="#243B24"
                     BorderWidth="3"
-                    BorderColor="#8C836B"
+                    BorderColor="#162416"
                     Margin="0,4"
                     HeightRequest="60"
+                        FontSize="20"
                     Text="Choose Photo"
                     TextColor="White" />
-                <Button
+                    <Button
                     BackgroundColor="#243B24"
                     BorderWidth="3"
+                        FontSize="20"
                     BorderColor="#162416"
                     HeightRequest="60"
                     Text="Make Prediction"
                     TextColor="White" />
-            </VerticalStackLayout>
-        </Grid>
-
+                </VerticalStackLayout>
+            </Grid>
+            <!--#8C836B-->
     </ScrollView>
 
 </ContentPage>

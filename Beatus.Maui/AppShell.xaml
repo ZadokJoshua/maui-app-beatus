@@ -4,10 +4,18 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Beatus.Maui"
+    xmlns:views="clr-namespace:Beatus.Maui.Views"
     Shell.FlyoutBehavior="Disabled">
+<!-- Pages not registered in shell as tabs should be registered in App.Shell.cs for routing-->
+    <TabBar>
+        <ShellContent
+        ContentTemplate="{DataTemplate views:MainPage}"
+        Route="MainPage" 
+            Title="Identify"/>
 
-    <ShellContent
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
-
+        <ShellContent
+            ContentTemplate="{DataTemplate views:SavedPage}"
+            Route="SavedPage"
+            Title="Saved"/>
+    </TabBar>
 </Shell>

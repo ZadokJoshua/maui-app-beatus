@@ -1,4 +1,4 @@
-﻿namespace Beatus.Maui;
+﻿namespace Beatus.Maui.Views;
 
 public partial class MainPage : ContentPage
 {
