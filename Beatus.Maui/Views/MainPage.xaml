@@ -9,6 +9,10 @@
     <ContentPage.Behaviors>
         <mct:StatusBarBehavior StatusBarColor="#050705"/>
     </ContentPage.Behaviors>
+
+    <ContentPage.Resources>
+        
+    </ContentPage.Resources>
     <ScrollView>
         <Grid Margin="20" RowDefinitions="Auto,*">
             <VerticalStackLayout Grid.Row="0" Spacing="6">
@@ -39,7 +43,9 @@
                 <Label
                     FontSize="Small"
                     Text="Please choose a clear image of a leaf for the app to predict the type of disease."
-                    TextColor="White" />
+                    TextColor="White"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"/>
                 <Border
                     Margin="0"
                     Padding="50"
@@ -62,21 +68,11 @@
                 </Border>
                 <Button
                     Margin="0,4"
-                    BackgroundColor="#243B24"
-                    BorderColor="#162416"
-                    BorderWidth="3"
-                    FontSize="20"
-                    HeightRequest="60"
-                    Text="Choose Photo"
-                    TextColor="White" />
+                    Text="Select Image" 
+                    Style="{StaticResource ButtonStyle}"/>
                 <Button
-                    BackgroundColor="#243B24"
-                    BorderColor="#162416"
-                    BorderWidth="3"
-                    FontSize="20"
-                    HeightRequest="60"
-                    Text="Make Prediction"
-                    TextColor="White" />
+                    Style="{StaticResource ButtonStyle}"
+                    Text="Make Prediction"/>
             </VerticalStackLayout>
         </Grid>
         <!--  #8C836B  -->

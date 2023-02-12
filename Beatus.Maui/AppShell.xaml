@@ -6,21 +6,19 @@
     xmlns:local="clr-namespace:Beatus.Maui"
     xmlns:views="clr-namespace:Beatus.Maui.Views"
     Shell.FlyoutBehavior="Disabled"
-    Shell.TabBarBackgroundColor="#243B24"
-    >
-<!-- Pages not registered in shell as tabs should be registered in App.Shell.cs for routing-->
+    Shell.TabBarBackgroundColor="#243B24">
+    <!--  Pages not registered in shell as tabs should be registered in App.Shell.cs for routing  -->
     <TabBar>
         <ShellContent
-        ContentTemplate="{DataTemplate views:MainPage}"
-        Route="MainPage" 
-            Icon="search.png"
-            
-            Title="Identify"/>
+            Title="Identify"
+            ContentTemplate="{DataTemplate views:MainPage}"
+            Icon="search_icon.png"
+            Route="MainPage" />
 
         <ShellContent
+            Title="Saved"
             ContentTemplate="{DataTemplate views:SavedPage}"
-            Route="SavedPage"
-            Icon="saved.png"
-            Title="Saved"/>
+            Icon="bookmarks_icon.png"
+            Route="SavedPage" />
     </TabBar>
 </Shell>

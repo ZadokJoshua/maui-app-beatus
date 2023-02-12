@@ -49,9 +49,9 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\beatus_logo.png" />
-	  <None Remove="Resources\Images\img_placeholder.png" />
-	  <None Remove="Resources\Images\saved.png" />
-	  <None Remove="Resources\Images\search.png" />
+	  <None Remove="Resources\Images\bookmarks_icon.svg" />
+	  <None Remove="Resources\Images\image.svg" />
+	  <None Remove="Resources\Images\search_icon.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
