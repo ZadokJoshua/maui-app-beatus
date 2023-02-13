@@ -1,22 +1,25 @@
-﻿<?xml version = "1.0" encoding = "UTF-8" ?>
-<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:Beatus.Maui"
-             x:Class="Beatus.Maui.App">
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Application
+    x:Class="Beatus.Maui.App"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Beatus.Maui">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+
                 <ResourceDictionary>
-                    <Style TargetType="Button" x:Key="ButtonStyle">
-                        <Setter Property="BackgroundColor" Value="#243B24"/>
-                        <Setter Property="BorderColor" Value="#162416"/>
-                        <Setter Property="BorderWidth" Value="3"/>
-                        <Setter Property="FontSize" Value="20"/>
-                        <Setter Property="HeightRequest" Value="60"/>
-                        <Setter Property="CornerRadius" Value="20"/>
-                        <Setter Property="TextColor" Value="White"/>
+                    <Style x:Key="ButtonStyle" TargetType="Button">
+                        <Setter Property="BackgroundColor" Value="#243B24" />
+                        <Setter Property="BorderColor" Value="LightGray" />
+                        <Setter Property="BorderWidth" Value="1.5" />
+                        <Setter Property="FontSize" Value="20" />
+                        <Setter Property="HeightRequest" Value="60" />
+                        <Setter Property="CornerRadius" Value="20" />
+                        <Setter Property="TextColor" Value="White" />
+                        <Setter Property="FontFamily" Value="RubikRegular" />
                     </Style>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>

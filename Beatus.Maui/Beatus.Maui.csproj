@@ -48,9 +48,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Fonts\Rubik-Bold.ttf" />
+	  <None Remove="Resources\Fonts\Rubik-Light.ttf" />
+	  <None Remove="Resources\Fonts\Rubik-Medium.ttf" />
+	  <None Remove="Resources\Fonts\Rubik-Regular.ttf" />
+	  <None Remove="Resources\Images\back.svg" />
 	  <None Remove="Resources\Images\beatus_logo.png" />
 	  <None Remove="Resources\Images\bookmarks_icon.svg" />
 	  <None Remove="Resources\Images\image.svg" />
+	  <None Remove="Resources\Images\previous.png" />
 	  <None Remove="Resources\Images\search_icon.svg" />
 	</ItemGroup>
 
@@ -58,14 +64,23 @@
 		<PackageReference Include="CommunityToolkit.Maui" Version="4.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="SkiaSharp.Views.Maui.Core" Version="2.88.3" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <Folder Include="Models\" />
-	  <Folder Include="ViewModels\" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\DetailsPage.xaml.cs">
+	    <DependentUpon>DetailsPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\DetailsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\SavedPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

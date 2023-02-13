@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Beatus.Maui.Views.DetailsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="DetailPage"
+    Shell.PresentationMode="Modal">
+    <ScrollView>
+        <Grid RowSpacing="4" RowDefinitions="Auto,*">
+            <Grid HeightRequest="300" RowDefinitions="Auto,*">
+                <Image
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Aspect="AspectFill"
+                    Source="bg.jpg" />
+                <Grid
+                    Grid.Row="0"
+                    Margin="20"
+                    ColumnDefinitions="*,*"
+                    >
+                    <Image
+                        Grid.Column="0"
+                        HeightRequest="30"
+                        HorizontalOptions="Start"
+                        Source="previous.png"
+                        VerticalOptions="Center"/>
+                    <Button
+                        Grid.Column="1"
+                        FontSize="16"
+                        HeightRequest="40"
+                        VerticalOptions="Center"
+                        HorizontalOptions="End"
+                        Style="{StaticResource ButtonStyle}"
+                        Text="Save" />
+                </Grid>
+            </Grid>
+
+            <VerticalStackLayout Grid.Row="1" Margin="10,5">
+                <Label Text="Status" />
+                <Label Text="Status" />
+                <Label Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>

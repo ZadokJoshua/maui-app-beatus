@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Maui;
+﻿using Beatus.Maui.ViewModels;
+using Beatus.Maui.Views;
+using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 
 namespace Beatus.Maui;
@@ -15,7 +17,14 @@ public static class MauiProgram
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+				fonts.AddFont("Rubik-Bold.ttf", "RubikBold");
+				fonts.AddFont("Rubik-Light.ttf", "RubikLight");
+				fonts.AddFont("Rubik-Medium.ttf", "RubikMedium");
+				fonts.AddFont("Rubik-Regular.ttf", "RubikRegular");
 			});
+
+		builder.Services.AddSingleton<MainViewModel>();
+		builder.Services.AddSingleton<MainPage>();
 
 #if DEBUG
 		builder.Logging.AddDebug();

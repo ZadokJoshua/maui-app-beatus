@@ -4,15 +4,15 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:mct="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
+    xmlns:viewmodel="clr-namespace:Beatus.Maui.ViewModels"
+    x:DataType="viewmodel:MainViewModel"
     BackgroundImageSource="bg.jpg"
     Shell.NavBarIsVisible="False">
+    
     <ContentPage.Behaviors>
-        <mct:StatusBarBehavior StatusBarColor="#050705"/>
+        <mct:StatusBarBehavior StatusBarColor="#050705" />
     </ContentPage.Behaviors>
 
-    <ContentPage.Resources>
-        
-    </ContentPage.Resources>
     <ScrollView>
         <Grid Margin="20" RowDefinitions="Auto,*">
             <VerticalStackLayout Grid.Row="0" Spacing="6">
@@ -23,12 +23,14 @@
                         VerticalOptions="Center" />
                     <Label
                         FontAttributes="Bold"
+                        FontFamily="RubikBold"
                         FontSize="30"
                         Text="Beatus"
                         TextColor="White"
                         VerticalOptions="Center" />
                 </HorizontalStackLayout>
                 <Label
+                    FontFamily="RubikLight"
                     FontSize="Medium"
                     Text="Plant leaf disease detection tool"
                     TextColor="White" />
@@ -41,16 +43,17 @@
                 VerticalOptions="Center">
 
                 <Label
+                    FontFamily="RubikLight"
                     FontSize="Small"
-                    Text="Please choose a clear image of a leaf for the app to predict the type of disease."
-                    TextColor="White"
                     HorizontalOptions="Center"
-                    HorizontalTextAlignment="Center"/>
+                    HorizontalTextAlignment="Center"
+                    Text="Please choose a clear image of a leaf for the app to predict the type of disease"
+                    TextColor="White" />
                 <Border
                     Margin="0"
                     Padding="50"
                     BackgroundColor="Black"
-                    IsVisible="False"
+                    IsVisible="{Binding ImageSelected}"
                     Opacity=".7"
                     Stroke="#162416"
                     StrokeThickness="3">
@@ -60,22 +63,37 @@
                     <Image
                         HeightRequest="200"
                         HorizontalOptions="Center"
-                        IsVisible="False"
                         Opacity="1"
-                        Source="img_placeholder.png"
+                        Source="{Binding Photo}"
                         VerticalOptions="Center"
                         WidthRequest="200" />
                 </Border>
+
+                <!--<HorizontalStackLayout>
+                    <Button
+                    Margin="0,4"
+                    Text="Take Image"
+                    Style="{StaticResource ButtonStyle}"/>
+                    <Button
+                    Margin="0,4"
+                    Text="Select Image"
+                    Style="{StaticResource ButtonStyle}"/>
+                </HorizontalStackLayout>-->
+
                 <Button
                     Margin="0,4"
-                    Text="Select Image" 
-                    Style="{StaticResource ButtonStyle}"/>
-                <Button
+                    Command="{Binding ExecutePickPhotoCommand}"
                     Style="{StaticResource ButtonStyle}"
-                    Text="Make Prediction"/>
+                    Text="Select Image" />
+
+                <Button
+                    BackgroundColor="Transparent"
+                   
+                    Style="{StaticResource ButtonStyle}"
+                    Text="Make Prediction" />
             </VerticalStackLayout>
         </Grid>
-        <!--  #8C836B  -->
+        <!--  #8C836B <Setter Property="BorderColor" Value="#162416"/> -->
     </ScrollView>
 
 </ContentPage>

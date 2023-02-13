@@ -1,10 +1,14 @@
-﻿namespace Beatus.Maui.Views;
+﻿using Beatus.Maui.ViewModels;
+
+namespace Beatus.Maui.Views;
 
 public partial class MainPage : ContentPage
 {
-	public MainPage()
+	public MainPage(MainViewModel mainViewModel)
 	{
 		InitializeComponent();
+
+		BindingContext = mainViewModel;
 	}
 
 }
