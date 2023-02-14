@@ -6,7 +6,7 @@
              Shell.NavBarIsVisible="False">
     <VerticalStackLayout>
         <Label 
-            Text="Saved Predictions"
+            Text="TODO: Saved Predictions"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
     </VerticalStackLayout>

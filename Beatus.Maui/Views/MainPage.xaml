@@ -8,7 +8,7 @@
     x:DataType="viewmodel:MainViewModel"
     BackgroundImageSource="bg.jpg"
     Shell.NavBarIsVisible="False">
-    
+
     <ContentPage.Behaviors>
         <mct:StatusBarBehavior StatusBarColor="#050705" />
     </ContentPage.Behaviors>
@@ -51,44 +51,46 @@
                     TextColor="White" />
                 <Border
                     Margin="0"
-                    Padding="50"
                     BackgroundColor="Black"
                     IsVisible="{Binding ImageSelected}"
-                    Opacity=".7"
-                    Stroke="#162416"
-                    StrokeThickness="3">
+                    Stroke="Dimgray"
+                    StrokeThickness="2">
                     <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="4,4,4,4" />
+                        <RoundRectangle CornerRadius="10,10,10,10" />
                     </Border.StrokeShape>
                     <Image
+                        Aspect="AspectFill"
                         HeightRequest="200"
                         HorizontalOptions="Center"
-                        Opacity="1"
                         Source="{Binding Photo}"
                         VerticalOptions="Center"
                         WidthRequest="200" />
                 </Border>
 
-                <!--<HorizontalStackLayout>
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="8">
                     <Button
-                    Margin="0,4"
-                    Text="Take Image"
-                    Style="{StaticResource ButtonStyle}"/>
+                        Grid.Column="0"
+                        Margin="0,4"
+                        FontSize="16"
+                        HorizontalOptions="Fill"
+                        Style="{StaticResource ButtonStyle}"
+                        Text="Capture" 
+                        ImageSource="camera.png"
+                        Command="{Binding ExecuteTakePhotoCommand}"/>
                     <Button
-                    Margin="0,4"
-                    Text="Select Image"
-                    Style="{StaticResource ButtonStyle}"/>
-                </HorizontalStackLayout>-->
+                        Grid.Column="1"
+                        Margin="0,4"
+                        FontSize="16"
+                        HorizontalOptions="Fill"
+                        Style="{StaticResource ButtonStyle}"
+                        Text="Select" 
+                        ImageSource="image.png"
+                        Command="{Binding ExecutePickPhotoCommand}"
+                        />
+                </Grid>
 
                 <Button
-                    Margin="0,4"
-                    Command="{Binding ExecutePickPhotoCommand}"
-                    Style="{StaticResource ButtonStyle}"
-                    Text="Select Image" />
-
-                <Button
-                    BackgroundColor="Transparent"
-                   
+                    BackgroundColor="Black"
                     Style="{StaticResource ButtonStyle}"
                     Text="Make Prediction" />
             </VerticalStackLayout>

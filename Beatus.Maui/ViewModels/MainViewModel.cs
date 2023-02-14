@@ -18,12 +18,12 @@ public partial class MainViewModel : ObservableObject
     private bool imageSelected;
 
     [RelayCommand]
-    private Task ExecutePickPhoto() => ProcessSelectedPhotoAsync(false);
+    private Task ExecutePickPhoto() => SelectPhotoAsync(false);
 
     [RelayCommand]
-    private Task ExecuteTakePhoto() => ProcessSelectedPhotoAsync(true);
+    private Task ExecuteTakePhoto() => SelectPhotoAsync(true);
 
-    public async Task ProcessSelectedPhotoAsync(bool useCamera)
+    public async Task SelectPhotoAsync(bool useCamera)
     {
         var selectedPhoto = useCamera ? await MediaPicker.Default.CapturePhotoAsync() 
             : await MediaPicker.Default.PickPhotoAsync();
@@ -34,37 +34,14 @@ public partial class MainViewModel : ObservableObject
             Photo = ImageSource.FromStream(() => new MemoryStream(resizedPhoto));
             ImageSelected = true;
         }
+    }
 
-        
+
+    public async Task ProcessSelectedPhoto()
+    {
         //await Shell.Current.GoToAsync(nameof(DetailsPage));
     }
 
-    //private async Task<byte[]> ResizePhoto(FileResult photo)
-    //{
-    //    byte[] result = null;
-
-    //    using (var stream = await photo.OpenReadAsync())
-    //    {
-    //        if (stream.Length > ImageMaxSizeBytes)
-    //        {
-    //            var image = PlatformImage.FromStream(stream);
-    //            if (image != null)
-    //            {
-    //                var newImage = image.Downsize(ImageMaxResolution, true);
-    //                result = newImage.AsBytes();
-    //            }
-    //        }
-    //        else
-    //        {
-    //            using (var binaryReader = new BinaryReader(stream))
-    //            {
-    //                result = binaryReader.ReadBytes((int)stream.Length);
-    //            }
-    //        }
-    //    }
-
-    //    return result;
-    //}
 
     private async Task<byte[]> ResizeImage(FileResult photo)
     {
