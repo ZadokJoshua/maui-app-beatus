@@ -92,7 +92,8 @@
                 <Button
                     BackgroundColor="Black"
                     Style="{StaticResource ButtonStyle}"
-                    Text="Make Prediction" />
+                    Text="Make Prediction" 
+                    Command="{Binding ClassifySelectedPhotoCommand}"/>
             </VerticalStackLayout>
         </Grid>
         <!--  #8C836B <Setter Property="BorderColor" Value="#162416"/> -->

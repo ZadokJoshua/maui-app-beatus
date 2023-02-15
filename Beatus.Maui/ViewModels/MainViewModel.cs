@@ -1,7 +1,9 @@
-﻿using Beatus.Maui.Views;
+﻿using Beatus.Maui.Models;
+using Beatus.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Storage;
+using Newtonsoft.Json;
 using SkiaSharp;
 
 namespace Beatus.Maui.ViewModels;
@@ -17,6 +19,9 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private bool imageSelected;
 
+    [ObservableProperty]
+    private FileResult selectedPhoto;
+
     [RelayCommand]
     private Task ExecutePickPhoto() => SelectPhotoAsync(false);
 
@@ -25,20 +30,22 @@ public partial class MainViewModel : ObservableObject
 
     public async Task SelectPhotoAsync(bool useCamera)
     {
-        var selectedPhoto = useCamera ? await MediaPicker.Default.CapturePhotoAsync() 
+        selectedPhoto = useCamera ? await MediaPicker.Default.CapturePhotoAsync() 
             : await MediaPicker.Default.PickPhotoAsync();
 
         if (selectedPhoto != null)
         {
-            var resizedPhoto = await ResizeImage(selectedPhoto);
-            Photo = ImageSource.FromStream(() => new MemoryStream(resizedPhoto));
+            
+            Photo = selectedPhoto.FullPath;
             ImageSelected = true;
         }
     }
 
-
-    public async Task ProcessSelectedPhoto()
+    [RelayCommand]
+    public async Task ClassifySelectedPhotoAsync()
     {
+        var resizedPhoto = await ResizeImage(selectedPhoto);
+        var result = await MakePredictionAsync(resizedPhoto);
         //await Shell.Current.GoToAsync(nameof(DetailsPage));
     }
 
@@ -87,7 +94,53 @@ public partial class MainViewModel : ObservableObject
         return result;
     }
 
+    private async Task<Prediction> MakePredictionAsync(byte[] imageBytes)
+    {
+        if (ImageSelected)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("Prediction-Key", PredictionApiKeys.Key);
 
+                using (var content = new ByteArrayContent(imageBytes))
+                {
+                    content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(PredictionApiKeys.ContentType);
 
+                    var response = await client.PostAsync(PredictionApiKeys.CustomVisionEndPoint, content);
 
+                    var responseString = await response.Content.ReadAsStringAsync();
+
+                    Prediction prediction = (JsonConvert.DeserializeObject<CustomVision>(responseString)).Predictions?.OrderByDescending(x => x.Probability).FirstOrDefault();
+
+                    return prediction;
+                }
+            } 
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    //private async Task<IEnumerable<Prediction>> MakePredictionAsync(byte[] imageBytes)
+    //{
+    //    using (HttpClient client = new HttpClient())
+    //    {
+    //        client.DefaultRequestHeaders.Add("Prediction-Key", PredictionApiKeys.Key);
+
+    //        using (var content = new ByteArrayContent(imageBytes))
+    //        {
+    //            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(PredictionApiKeys.ContentType);
+
+    //            var response = await client.PostAsync(PredictionApiKeys.CustomVisionEndPoint, content);
+
+    //            var responseString = await response.Content.ReadAsStringAsync();
+
+    //            IEnumerable<Prediction> predictions = (JsonConvert.DeserializeObject<CustomVision>(responseString)).Predictions;
+
+    //            return predictions;
+    //        }
+    //    }
+
+    //}
 }
