@@ -121,26 +121,4 @@ public partial class MainViewModel : ObservableObject
             return null;
         }
     }
-
-    //private async Task<IEnumerable<Prediction>> MakePredictionAsync(byte[] imageBytes)
-    //{
-    //    using (HttpClient client = new HttpClient())
-    //    {
-    //        client.DefaultRequestHeaders.Add("Prediction-Key", PredictionApiKeys.Key);
-
-    //        using (var content = new ByteArrayContent(imageBytes))
-    //        {
-    //            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(PredictionApiKeys.ContentType);
-
-    //            var response = await client.PostAsync(PredictionApiKeys.CustomVisionEndPoint, content);
-
-    //            var responseString = await response.Content.ReadAsStringAsync();
-
-    //            IEnumerable<Prediction> predictions = (JsonConvert.DeserializeObject<CustomVision>(responseString)).Predictions;
-
-    //            return predictions;
-    //        }
-    //    }
-
-    //}
 }
