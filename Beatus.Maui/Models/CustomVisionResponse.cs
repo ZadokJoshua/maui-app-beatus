@@ -7,9 +7,9 @@ public class Prediction
     public double Probability { get; set; }
 }
 
-public class CustomVision
+public class CustomVisionResponse
 {
-    public string Id { get; set; }
+    public string Id { get; set; }  
     public string Project { get; set; }
     public string Iteration { get; set; }
     public DateTime Created { get; set; }

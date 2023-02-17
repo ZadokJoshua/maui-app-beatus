@@ -2,6 +2,7 @@
 using Beatus.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Maui.Storage;
 using Newtonsoft.Json;
 using SkiaSharp;
@@ -10,8 +11,15 @@ namespace Beatus.Maui.ViewModels;
 
 public partial class MainViewModel : ObservableObject
 {
+    public MainViewModel(IConfiguration config)
+    {
+        _config = config;
+    }
+
     private const int ImageMaxSizeBytes = 4194304;
     private const int ImageMaxResolution = 1024;
+
+    private readonly IConfiguration _config;
 
     [ObservableProperty] 
     private ImageSource photo;
@@ -22,6 +30,7 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private FileResult selectedPhoto;
 
+
     [RelayCommand]
     private Task ExecutePickPhoto() => SelectPhotoAsync(false);
 
@@ -30,13 +39,13 @@ public partial class MainViewModel : ObservableObject
 
     public async Task SelectPhotoAsync(bool useCamera)
     {
-        selectedPhoto = useCamera ? await MediaPicker.Default.CapturePhotoAsync() 
+        SelectedPhoto = useCamera ? await MediaPicker.Default.CapturePhotoAsync() 
             : await MediaPicker.Default.PickPhotoAsync();
 
-        if (selectedPhoto != null)
+        if (SelectedPhoto != null)
         {
             
-            Photo = selectedPhoto.FullPath;
+            Photo = SelectedPhoto.FullPath;
             ImageSelected = true;
         }
     }
@@ -44,7 +53,7 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     public async Task ClassifySelectedPhotoAsync()
     {
-        var resizedPhoto = await ResizeImage(selectedPhoto);
+        var resizedPhoto = await ResizeImage(SelectedPhoto);
         var result = await MakePredictionAsync(resizedPhoto);
         //await Shell.Current.GoToAsync(nameof(DetailsPage));
     }
@@ -100,17 +109,16 @@ public partial class MainViewModel : ObservableObject
         {
             using (HttpClient client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Add("Prediction-Key", PredictionApiKeys.Key);
+                client.DefaultRequestHeaders.Add("Prediction-Key", _config["CustomVision:ApiKey"]);
 
                 using (var content = new ByteArrayContent(imageBytes))
                 {
-                    content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(PredictionApiKeys.ContentType);
+                    content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
 
-                    var response = await client.PostAsync(PredictionApiKeys.CustomVisionEndPoint, content);
+                    var response = await client.PostAsync(_config["CustomVision:EndPoint"], content);
 
                     var responseString = await response.Content.ReadAsStringAsync();
-
-                    Prediction prediction = (JsonConvert.DeserializeObject<CustomVision>(responseString)).Predictions?.OrderByDescending(x => x.Probability).FirstOrDefault();
+                    Prediction prediction = (JsonConvert.DeserializeObject<CustomVisionResponse>(responseString)).Predictions?.OrderByDescending(x => x.Probability).FirstOrDefault();
 
                     return prediction;
                 }
