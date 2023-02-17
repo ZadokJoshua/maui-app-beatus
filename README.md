@@ -1,3 +1,3 @@
 # Beatus.Maui
 
-At the end of the app, ensure you remove appsettings from gitignore.
+At the end of the app dev, ensure you remove appsettings from gitignore.
