@@ -1,5 +1,6 @@
 ﻿namespace Beatus.Maui.Services;
 
-public class OpenAiApiService
+public class CustomVisionAIService
 {
+
 }

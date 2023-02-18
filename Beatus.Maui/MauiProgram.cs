@@ -3,7 +3,7 @@ using Beatus.Maui.Views;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
-
+using Beatus.Maui.Services;
 
 namespace Beatus.Maui;
 
@@ -34,6 +34,9 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<MainViewModel>();
 		builder.Services.AddSingleton<MainPage>();
+
+
+		builder.Services.AddScoped<OpenAiService>();
 
 #if DEBUG
 		builder.Logging.AddDebug();

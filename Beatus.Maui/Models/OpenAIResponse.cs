@@ -8,7 +8,7 @@ public class Choice
     public string FinishReason { get; set; }
 }
 
-public class Root
+public class OpenAIResponse
 {
     public string Id { get; set; }
     public string Object { get; set; }
@@ -24,3 +24,4 @@ public class Usage
     public int CompletionTokens { get; set; }
     public int TotalTokens { get; set; }
 }
+
