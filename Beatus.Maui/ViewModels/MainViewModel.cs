@@ -10,10 +10,11 @@ namespace Beatus.Maui.ViewModels;
 
 public partial class MainViewModel : ObservableObject
 {
-    public MainViewModel(IConfiguration config, OpenAiService openAi)
+    public MainViewModel(IConfiguration config, OpenAiService openAi, CustomVisionAIService customVisionAI)
     {
         _config = config;
         _openAi = openAi;
+        _customVisionAI = customVisionAI;
     }
 
     private const int ImageMaxSizeBytes = 4194304;
@@ -21,6 +22,7 @@ public partial class MainViewModel : ObservableObject
 
     private readonly IConfiguration _config;
     private readonly OpenAiService _openAi;
+    private readonly CustomVisionAIService _customVisionAI;
     [ObservableProperty] 
     private ImageSource photo;
 
@@ -53,10 +55,13 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     public async Task ClassifySelectedPhotoAsync()
     {
-        var resizedPhoto = await ResizeImage(SelectedPhoto);
-        var result = await MakePredictionAsync(resizedPhoto);
-        var openAiResponse = _openAi.GetPlantTips(result.TagName);
-        //await Shell.Current.GoToAsync(nameof(DetailsPage));
+        if (ImageSelected)
+        {
+            var resizedPhoto = await ResizeImage(SelectedPhoto);
+            var result = await _customVisionAI.MakePredictionAsync(resizedPhoto);
+            var openAiResponse = await _openAi.GetPlantTips(result.TagName);
+            //await Shell.Current.GoToAsync(nameof(DetailsPage));
+        }
     }
 
 
@@ -102,28 +107,5 @@ public partial class MainViewModel : ObservableObject
         }
 
         return result;
-    }
-
-    private async Task<Prediction> MakePredictionAsync(byte[] imageBytes)
-    {
-        if (ImageSelected)
-        {
-            using HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Add("Prediction-Key", _config["CustomVision:Key"]);
-
-            using var content = new ByteArrayContent(imageBytes);
-            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
-
-            var response = await client.PostAsync(_config["CustomVision:EndPoint"], content);
-
-            var responseString = await response.Content.ReadAsStringAsync();
-            Prediction prediction = (JsonConvert.DeserializeObject<CustomVisionResponse>(responseString)).Predictions?.OrderByDescending(x => x.Probability).FirstOrDefault();
-
-            return prediction;
-        }
-        else
-        {
-            return null;
-        }
     }
 }
