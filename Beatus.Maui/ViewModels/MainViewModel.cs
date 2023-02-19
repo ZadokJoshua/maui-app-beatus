@@ -1,5 +1,6 @@
 ﻿using Beatus.Maui.Models;
 using Beatus.Maui.Services;
+using Beatus.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
@@ -10,6 +11,13 @@ namespace Beatus.Maui.ViewModels;
 
 public partial class MainViewModel : ObservableObject
 {
+    private const int ImageMaxSizeBytes = 4194304;
+    private const int ImageMaxResolution = 1024;
+
+    private readonly IConfiguration _config;
+    private readonly OpenAiService _openAi;
+    private readonly CustomVisionAIService _customVisionAI;
+
     public MainViewModel(IConfiguration config, OpenAiService openAi, CustomVisionAIService customVisionAI)
     {
         _config = config;
@@ -17,12 +25,6 @@ public partial class MainViewModel : ObservableObject
         _customVisionAI = customVisionAI;
     }
 
-    private const int ImageMaxSizeBytes = 4194304;
-    private const int ImageMaxResolution = 1024;
-
-    private readonly IConfiguration _config;
-    private readonly OpenAiService _openAi;
-    private readonly CustomVisionAIService _customVisionAI;
     [ObservableProperty] 
     private ImageSource photo;
 
@@ -31,7 +33,6 @@ public partial class MainViewModel : ObservableObject
 
     [ObservableProperty]
     private FileResult selectedPhoto;
-
 
     [RelayCommand]
     private Task ExecutePickPhoto() => SelectPhotoAsync(false);
@@ -58,9 +59,16 @@ public partial class MainViewModel : ObservableObject
         if (ImageSelected)
         {
             var resizedPhoto = await ResizeImage(SelectedPhoto);
-            var result = await _customVisionAI.MakePredictionAsync(resizedPhoto);
-            var openAiResponse = await _openAi.GetPlantTips(result.TagName);
-            //await Shell.Current.GoToAsync(nameof(DetailsPage));
+            var customVisionAIResponse = await _customVisionAI.MakePredictionAsync(resizedPhoto);
+            var openAiResponse = await _openAi.GetPlantTips(customVisionAIResponse.TagName);
+
+            PredictionDetails details = new(resizedPhoto, customVisionAIResponse.TagName, (int)(customVisionAIResponse.Probability * 100), openAiResponse);
+            await Shell.Current.GoToAsync(nameof(DetailsPage), new Dictionary<string, object>
+            {
+                {
+                    "PredictionDetails", details
+                }
+            });
         }
     }
 
