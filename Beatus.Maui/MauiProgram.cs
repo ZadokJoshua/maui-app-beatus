@@ -26,10 +26,9 @@ public static class MauiProgram
 			});
 
         var config = new ConfigurationBuilder()
-			.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+			.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
 			.Build();
 
-        // Register the configuration as a singleton service
         builder.Services.AddSingleton<IConfiguration>(config);
 
         builder.Services.AddSingleton<MainViewModel>();

@@ -3,44 +3,56 @@
     x:Class="Beatus.Maui.Views.DetailsPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="DetailPage"
-    Shell.PresentationMode="Modal"
     xmlns:viewmodel="clr-namespace:Beatus.Maui.ViewModels"
-    x:DataType="viewmodel:DetailsViewModel">
+    Title="DetailPage"
+    x:DataType="viewmodel:DetailsViewModel"
+    Shell.PresentationMode="Modal">
     <ScrollView>
-        <Grid RowSpacing="4" RowDefinitions="Auto,*">
+        <Grid RowDefinitions="Auto,*" RowSpacing="4">
             <Grid HeightRequest="300" RowDefinitions="Auto,*">
                 <Image
                     Grid.Row="0"
                     Grid.RowSpan="2"
                     Aspect="AspectFill"
-                    Source="bg.jpg" />
+                    Source="{Binding PlantImage}" />
                 <Grid
                     Grid.Row="0"
                     Margin="20"
-                    ColumnDefinitions="*,*"
-                    >
+                    ColumnDefinitions="*,*">
                     <Image
                         Grid.Column="0"
                         HeightRequest="30"
                         HorizontalOptions="Start"
                         Source="previous.png"
-                        VerticalOptions="Center"/>
+                        VerticalOptions="Center">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding PreviousPageCommand}" />
+                        </Image.GestureRecognizers>
+                    </Image>
                     <Button
                         Grid.Column="1"
                         FontSize="16"
                         HeightRequest="40"
-                        VerticalOptions="Center"
                         HorizontalOptions="End"
                         Style="{StaticResource ButtonStyle}"
-                        Text="Save" />
+                        Text="Save"
+                        VerticalOptions="Center" />
                 </Grid>
             </Grid>
 
             <VerticalStackLayout Grid.Row="1" Margin="10,5">
-                <Label Text="{Binding PredictionDetails.TagName}" />
-                <Label Text="Status" />
-                <Label Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
+                <Label
+                    FontFamily="RubikMedium"
+                    FontSize="Large"
+                    Text="{Binding PredictionDetails.TagName}" />
+                <Label
+                    FontFamily="RubikRegular"
+                    FontSize="Medium"
+                    Text="{Binding PredictionDetails.Probability, StringFormat='Probability: {0}%'}" />
+                <Label
+                    FontFamily="RubikLight"
+                    FontSize="Body"
+                    Text="{Binding PredictionDetails.Recommendation}" />
             </VerticalStackLayout>
         </Grid>
     </ScrollView>

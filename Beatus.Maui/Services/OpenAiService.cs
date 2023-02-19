@@ -27,7 +27,7 @@ public class OpenAiService
             (
                 model: "text-davinci-001",
                 prompt: $"Please provide tips about caring for a {plantName} plant, including how to treat it if it becomes diseased.",
-                max_tokens: 100,
+                max_tokens: 256,
                 temperature: 1,
                 stop: "."
             );

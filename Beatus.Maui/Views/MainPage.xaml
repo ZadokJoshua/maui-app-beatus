@@ -71,29 +71,28 @@
                     <Button
                         Grid.Column="0"
                         Margin="0,4"
+                        Command="{Binding ExecuteTakePhotoCommand}"
                         FontSize="16"
                         HorizontalOptions="Fill"
-                        Style="{StaticResource ButtonStyle}"
-                        Text="Capture" 
                         ImageSource="camera.png"
-                        Command="{Binding ExecuteTakePhotoCommand}"/>
+                        Style="{StaticResource ButtonStyle}"
+                        Text="Capture" />
                     <Button
                         Grid.Column="1"
                         Margin="0,4"
+                        Command="{Binding ExecutePickPhotoCommand}"
                         FontSize="16"
                         HorizontalOptions="Fill"
-                        Style="{StaticResource ButtonStyle}"
-                        Text="Select" 
                         ImageSource="image.png"
-                        Command="{Binding ExecutePickPhotoCommand}"
-                        />
+                        Style="{StaticResource ButtonStyle}"
+                        Text="Select" />
                 </Grid>
 
                 <Button
                     BackgroundColor="Black"
+                    Command="{Binding ClassifySelectedPhotoCommand}"
                     Style="{StaticResource ButtonStyle}"
-                    Text="Make Prediction" 
-                    Command="{Binding ClassifySelectedPhotoCommand}"/>
+                    Text="Make Prediction" />
             </VerticalStackLayout>
         </Grid>
         <!--  #8C836B <Setter Property="BorderColor" Value="#162416"/> -->

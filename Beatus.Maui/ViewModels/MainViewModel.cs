@@ -13,26 +13,54 @@ public partial class MainViewModel : ObservableObject
 {
     private const int ImageMaxSizeBytes = 4194304;
     private const int ImageMaxResolution = 1024;
-
-    private readonly IConfiguration _config;
+    
     private readonly OpenAiService _openAi;
     private readonly CustomVisionAIService _customVisionAI;
 
-    public MainViewModel(IConfiguration config, OpenAiService openAi, CustomVisionAIService customVisionAI)
+    public MainViewModel(OpenAiService openAi, CustomVisionAIService customVisionAI)
     {
-        _config = config;
         _openAi = openAi;
         _customVisionAI = customVisionAI;
     }
-
-    [ObservableProperty] 
+    
     private ImageSource photo;
 
-    [ObservableProperty]
+    public ImageSource Photo
+    {
+        get { return photo; }
+        set
+        {
+            photo = value;
+            OnPropertyChanged(nameof(Photo));
+        }
+    }
+
+
     private bool imageSelected;
 
-    [ObservableProperty]
+    public bool ImageSelected
+    {
+        get { return imageSelected; }
+        set
+        {
+            imageSelected = value;
+            OnPropertyChanged(nameof(ImageSelected));
+        }
+    }
+
+
     private FileResult selectedPhoto;
+
+    public FileResult SelectedPhoto
+    {
+        get { return selectedPhoto; }
+        set
+        {
+            selectedPhoto = value;
+            OnPropertyChanged(nameof(SelectedPhoto));
+        }
+    }
+
 
     [RelayCommand]
     private Task ExecutePickPhoto() => SelectPhotoAsync(false);
@@ -60,15 +88,19 @@ public partial class MainViewModel : ObservableObject
         {
             var resizedPhoto = await ResizeImage(SelectedPhoto);
             var customVisionAIResponse = await _customVisionAI.MakePredictionAsync(resizedPhoto);
-            var openAiResponse = await _openAi.GetPlantTips(customVisionAIResponse.TagName);
-
-            PredictionDetails details = new(resizedPhoto, customVisionAIResponse.TagName, (int)(customVisionAIResponse.Probability * 100), openAiResponse);
-            await Shell.Current.GoToAsync(nameof(DetailsPage), new Dictionary<string, object>
+            if (customVisionAIResponse is not null)
+            {
+                // The Null error was coming from here because the response was null and the TagName was null as well. So I have
+                // commented out the line below and will add a new line to get the response from OpenAI in the DetailsViewModel. 
+                //var openAiResponse = await _openAi.GetPlantTips(customVisionAIResponse.TagName);
+                PredictionDetails details = new() { PlantImage = resizedPhoto, TagName = customVisionAIResponse.TagName, Probability = (int)(customVisionAIResponse.Probability * 100), Recommendation = "openAiResponse" };
+                await Shell.Current.GoToAsync(nameof(DetailsPage), new Dictionary<string, object>
             {
                 {
                     "PredictionDetails", details
                 }
             });
+            }
         }
     }
 
