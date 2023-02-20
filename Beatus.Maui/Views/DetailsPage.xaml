@@ -8,7 +8,7 @@
     x:DataType="viewmodel:DetailsViewModel"
     Shell.PresentationMode="Modal">
     <ScrollView>
-        <Grid RowDefinitions="Auto,*" RowSpacing="4">
+        <Grid RowDefinitions="Auto,Auto" RowSpacing="4">
             <Grid HeightRequest="300" RowDefinitions="Auto,*">
                 <Image
                     Grid.Row="0"
@@ -40,7 +40,10 @@
                 </Grid>
             </Grid>
 
-            <VerticalStackLayout Grid.Row="1" Margin="10,5">
+            <VerticalStackLayout
+                Grid.Row="1"
+                Margin="10,5"
+                Spacing="5">
                 <Label
                     FontFamily="RubikMedium"
                     FontSize="Large"
@@ -49,6 +52,11 @@
                     FontFamily="RubikRegular"
                     FontSize="Medium"
                     Text="{Binding PredictionDetails.Probability, StringFormat='Probability: {0}%'}" />
+                <Line BackgroundColor="#243B24" Margin="0,8" />
+                <Label
+                    FontFamily="RubikRegular"
+                    FontSize="Body"
+                    Text="Recommended Tips:" />
                 <Label
                     FontFamily="RubikLight"
                     FontSize="Body"

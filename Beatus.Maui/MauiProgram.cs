@@ -4,6 +4,7 @@ using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using Beatus.Maui.Services;
+using System.Reflection;
 
 namespace Beatus.Maui;
 
@@ -25,9 +26,9 @@ public static class MauiProgram
 				fonts.AddFont("Rubik-Regular.ttf", "RubikRegular");
 			});
 
-        var config = new ConfigurationBuilder()
-			.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-			.Build();
+		var a = Assembly.GetExecutingAssembly();
+        using var stream = a.GetManifestResourceStream("Beatus.Maui.appsettings.json");
+        var config = new ConfigurationBuilder().AddJsonStream(stream).Build();
 
         builder.Services.AddSingleton<IConfiguration>(config);
 

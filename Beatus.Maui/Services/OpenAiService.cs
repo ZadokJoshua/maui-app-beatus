@@ -27,9 +27,9 @@ public class OpenAiService
             (
                 model: "text-davinci-001",
                 prompt: $"Please provide tips about caring for a {plantName} plant, including how to treat it if it becomes diseased.",
-                max_tokens: 256,
+                max_tokens: 512,
                 temperature: 1,
-                stop: "."
+                stop: @"\n"
             );
 
             var content = new StringContent(JsonConvert.SerializeObject(requestData), Encoding.UTF8, "application/json");
@@ -39,7 +39,7 @@ public class OpenAiService
 
             var responseData = JsonConvert.DeserializeObject<OpenAIResponse>(responseJson);
 
-            return responseData.Choices.FirstOrDefault()?.Text;
+            return responseData.Choices.FirstOrDefault()?.Text.Trim();
         }
     }
 

@@ -52,6 +52,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="appsettings.json" />
 	  <None Remove="Resources\Fonts\Rubik-Bold.ttf" />
 	  <None Remove="Resources\Fonts\Rubik-Light.ttf" />
 	  <None Remove="Resources\Fonts\Rubik-Medium.ttf" />
@@ -64,6 +65,12 @@
 	  <None Remove="Resources\Images\previous.png" />
 	  <None Remove="Resources\Images\save.svg" />
 	  <None Remove="Resources\Images\search_icon.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="appsettings.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -88,12 +95,6 @@
 	  <MauiXaml Update="Views\SavedPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Update="appsettings.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
 	</ItemGroup>
 
 </Project>

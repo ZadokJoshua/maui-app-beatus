@@ -61,6 +61,9 @@ public partial class MainViewModel : ObservableObject
         }
     }
 
+    [ObservableProperty]
+    private bool isBusy;
+
 
     [RelayCommand]
     private Task ExecutePickPhoto() => SelectPhotoAsync(false);
@@ -86,14 +89,17 @@ public partial class MainViewModel : ObservableObject
     {
         if (ImageSelected)
         {
+            IsBusy = true;
             var resizedPhoto = await ResizeImage(SelectedPhoto);
             var customVisionAIResponse = await _customVisionAI.MakePredictionAsync(resizedPhoto);
             if (customVisionAIResponse is not null)
             {
                 // The Null error was coming from here because the response was null and the TagName was null as well. So I have
                 // commented out the line below and will add a new line to get the response from OpenAI in the DetailsViewModel. 
-                //var openAiResponse = await _openAi.GetPlantTips(customVisionAIResponse.TagName);
-                PredictionDetails details = new() { PlantImage = resizedPhoto, TagName = customVisionAIResponse.TagName, Probability = (int)(customVisionAIResponse.Probability * 100), Recommendation = "openAiResponse" };
+                // IT WORKS NOW!
+
+                var openAiResponse = await _openAi.GetPlantTips(customVisionAIResponse.TagName);
+                PredictionDetails details = new() { PlantImage = resizedPhoto, TagName = customVisionAIResponse.TagName, Probability = (int)(customVisionAIResponse.Probability * 100), Recommendation = openAiResponse/*"OpenAi response: This will be done in the details Page via the details view model."*/ };
                 await Shell.Current.GoToAsync(nameof(DetailsPage), new Dictionary<string, object>
             {
                 {
@@ -101,9 +107,17 @@ public partial class MainViewModel : ObservableObject
                 }
             });
             }
+            IsBusy = false;
         }
     }
 
+    [RelayCommand]
+    public void Cancel()
+    {
+        Photo = null;
+        SelectedPhoto = null;
+        ImageSelected = false;
+    }
 
     private async Task<byte[]> ResizeImage(FileResult photo)
     {
