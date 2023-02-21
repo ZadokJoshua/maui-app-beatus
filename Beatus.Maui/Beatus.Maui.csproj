@@ -12,7 +12,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 
 		<!-- Display name -->
-		<ApplicationTitle>Beatus.Maui</ApplicationTitle>
+		<ApplicationTitle>Beatus</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>com.companyname.beatus.maui</ApplicationId>

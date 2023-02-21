@@ -8,7 +8,6 @@ namespace Beatus.Maui.Services;
 public class OpenAiService
 {
     private readonly IConfiguration _config;
-    private const string ApiEndpoint = "https://api.openai.com/v1/completions";
 
     public OpenAiService(IConfiguration config)
 	{
@@ -33,12 +32,12 @@ public class OpenAiService
             );
 
             var content = new StringContent(JsonConvert.SerializeObject(requestData), Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await client.PostAsync(ApiEndpoint, content);
+            HttpResponseMessage response = await client.PostAsync($"{ _config["OpenAI:Endpoint"]}", content);
 
             var responseJson = await response.Content.ReadAsStringAsync();
 
             var responseData = JsonConvert.DeserializeObject<OpenAIResponse>(responseJson);
-
+            
             return responseData.Choices.FirstOrDefault()?.Text.Trim();
         }
     }

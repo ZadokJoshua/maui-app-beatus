@@ -22,30 +22,13 @@ public partial class DetailsViewModel : ObservableObject
         }
     }
 
-    private string recommendation;
-
-    public string Recommendation
-    {
-        get { return recommendation; }
-        set
-        {
-            recommendation = value;
-            OnPropertyChanged(nameof(Recommendation));
-        }
-    }
-
-
     public DetailsViewModel(OpenAiService openAiService)
     {
         _openAiService = openAiService;
-
-        GetRecommendation();
     }
 
     public ImageSource PlantImage => ImageSource.FromStream(() => new MemoryStream(PredictionDetails.PlantImage));
 
     [RelayCommand]
     public void PreviousPage() => Shell.Current.GoToAsync("..");
-    
-    private async Task GetRecommendation() => Recommendation = await _openAiService.GetPlantTips(PredictionDetails.TagName);
 }
