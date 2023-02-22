@@ -25,6 +25,7 @@ public static class MauiProgram
 				fonts.AddFont("Rubik-Medium.ttf", "RubikMedium");
 				fonts.AddFont("Rubik-Regular.ttf", "RubikRegular");
 			});
+		
 
 		var a = Assembly.GetExecutingAssembly();
         using var stream = a.GetManifestResourceStream("Beatus.Maui.appsettings.json");

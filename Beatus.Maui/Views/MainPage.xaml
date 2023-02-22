@@ -123,25 +123,6 @@
                     Style="{StaticResource ButtonStyle}"
                     Text="Make Prediction" />
             </VerticalStackLayout>
-
-            <!--<Frame
-                Grid.Row="1"
-                BackgroundColor="#1D2021"
-                BorderColor="#1D2021"
-                CornerRadius="10"
-                HasShadow="False"
-                HeightRequest="150"
-                IsVisible="{x:Binding IsBusy}"
-                Opacity=".7"
-                WidthRequest="150">
-                <ActivityIndicator
-                    HeightRequest="120"
-                    IsRunning="{Binding IsBusy}"
-                    IsVisible="{Binding IsBusy}"
-                    Opacity=".7"
-                    WidthRequest="120"
-                    Color="#689D6A" />
-            </Frame>-->
         </Grid>
     </ScrollView>
 
