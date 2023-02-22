@@ -20,7 +20,7 @@ public class DataService : IDataService
         return await _database.Table<PredictionDetailsEntity>().ToListAsync();
     }
 
-    public async Task<PredictionDetailsEntity> GetSavedPRediction(int id)
+    public async Task<PredictionDetailsEntity> GetSavedPrediction(int id)
     {
         return await _database.Table<PredictionDetailsEntity>().FirstOrDefaultAsync(pd => pd.Id == id);
     }

@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using Beatus.Maui.Services;
 using System.Reflection;
+using Beatus.Maui.Services.Interfaces;
 
 namespace Beatus.Maui;
 
@@ -40,9 +41,10 @@ public static class MauiProgram
 
         builder.Services.AddScoped<OpenAiService>();
         builder.Services.AddScoped<CustomVisionAIService>();
+        builder.Services.AddScoped<IDataService, DataService>();
 
 #if DEBUG
-		builder.Logging.AddDebug();
+        builder.Logging.AddDebug();
 #endif
 
 		return builder.Build();
