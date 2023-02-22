@@ -85,29 +85,36 @@ public partial class MainViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public async Task ClassifySelectedPhotoAsync()
+    public async Task MakePredictionAsync()
     {
         if (ImageSelected)
         {
             IsBusy = true;
-            var resizedPhoto = await ResizeImage(SelectedPhoto);
-            var customVisionAIResponse = await _customVisionAI.MakePredictionAsync(resizedPhoto);
-            if (customVisionAIResponse is not null)
+            try
             {
-                // The Null error was coming from here because the response was null and the TagName was null as well. So I have
-                // commented out the line below and will add a new line to get the response from OpenAI in the DetailsViewModel. 
-                // IT WORKS NOW!
-
-                var openAiResponse = await _openAi.GetPlantTips(customVisionAIResponse.TagName);
-                PredictionDetails details = new() { PlantImage = resizedPhoto, TagName = customVisionAIResponse.TagName, Probability = (int)(customVisionAIResponse.Probability * 100), Recommendation = openAiResponse/*"OpenAi response: This will be done in the details Page via the details view model."*/ };
-                await Shell.Current.GoToAsync(nameof(DetailsPage), new Dictionary<string, object>
-            {
+                var resizedPhoto = await ResizeImage(SelectedPhoto);
+                var customVisionAIResponse = await _customVisionAI.MakePredictionAsync(resizedPhoto);
+                if (customVisionAIResponse is not null)
                 {
-                    "PredictionDetails", details
+                    var openAiResponse = await _openAi.GetPlantTips(customVisionAIResponse.TagName);
+                    PredictionDetails details = new() { PlantImage = resizedPhoto, TagName = customVisionAIResponse.TagName, Probability = (int)(customVisionAIResponse.Probability * 100), Recommendation = openAiResponse};
+                    await Shell.Current.GoToAsync(nameof(DetailsPage), new Dictionary<string, object>
+                    {
+                        {
+                            "PredictionDetails", details
+                        }
+                    });
                 }
-            });
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
             }
             IsBusy = false;
+        }
+        else
+        {
+            await Shell.Current.DisplayAlert("No Image Selected", "Please select or capture an image", "OK");
         }
     }
 
@@ -131,10 +138,8 @@ public partial class MainViewModel : ObservableObject
                 {
                     using (var original = SKBitmap.Decode(skiaStream))
                     {
-                        // Calculate the aspect ratio of the original image
                         var aspectRatio = (float)original.Width / original.Height;
-
-                        // Calculate the new width and height of the image
+                        
                         var newWidth = ImageMaxResolution;
                         var newHeight = ImageMaxResolution / aspectRatio;
 
@@ -159,7 +164,6 @@ public partial class MainViewModel : ObservableObject
                 }
             }
         }
-
         return result;
     }
 }

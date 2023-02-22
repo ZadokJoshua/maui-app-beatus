@@ -119,7 +119,7 @@
 
                 <Button
                     BackgroundColor="Black"
-                    Command="{Binding ClassifySelectedPhotoCommand}"
+                    Command="{Binding MakePredictionCommand}"
                     Style="{StaticResource ButtonStyle}"
                     Text="Make Prediction" />
             </VerticalStackLayout>
