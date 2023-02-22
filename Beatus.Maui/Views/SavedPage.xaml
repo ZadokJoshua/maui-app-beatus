@@ -4,10 +4,23 @@
              x:Class="Beatus.Maui.Views.SavedPage"
              Title="SavedPage"
              Shell.NavBarIsVisible="False">
-    <VerticalStackLayout>
+    <VerticalStackLayout Margin="20">
         <Label 
             Text="TODO: Saved Predictions"
             VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+            HorizontalOptions="Start" />
+
+        <ListView>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                            <!-- Template to use -->
+                            <!--<Label Text="{Binding Name}" />
+                            <Label Text="{Binding Description}" />-->
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+        </ListView>
     </VerticalStackLayout>
 </ContentPage>

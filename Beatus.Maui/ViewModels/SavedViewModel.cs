@@ -7,7 +7,7 @@ namespace Beatus.Maui.ViewModels;
 public class SavedViewModel
 {
     private readonly IDataService _dataService;
-    public ObservableCollection<PredictionDetailsEntity> SavedPredictions { get; set; } = new ObservableCollection<PredictionDetailsEntity>();
+    public ObservableCollection<PredictionDetailsEntity> SavedPredictions { get; private set; } = new ObservableCollection<PredictionDetailsEntity>();
 
     public SavedViewModel(IDataService dataService)
     {
@@ -24,5 +24,4 @@ public class SavedViewModel
             SavedPredictions.Add(prediction);
         }
     }
-
 }
