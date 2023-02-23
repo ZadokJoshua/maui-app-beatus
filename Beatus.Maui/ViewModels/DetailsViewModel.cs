@@ -7,11 +7,12 @@ using CommunityToolkit.Mvvm.Input;
 namespace Beatus.Maui.ViewModels;
 
 [QueryProperty(nameof(PredictionDetails), "PredictionDetails")]
+[QueryProperty(nameof(IsOpenedFromMainPage), "IsOpenedFromMainPage")]
 public partial class DetailsViewModel : ObservableObject
 {
     private PredictionDetails predictionDetails;
-    private readonly OpenAiService _openAiService;
     private readonly IDataService _dataService;
+    public ImageSource PlantImage => ImageSource.FromStream(() => new MemoryStream(PredictionDetails.PlantImage));
 
     public PredictionDetails PredictionDetails
     {
@@ -24,13 +25,14 @@ public partial class DetailsViewModel : ObservableObject
         }
     }
 
-    public DetailsViewModel(OpenAiService openAiService, IDataService dataService)
+    [ObservableProperty]
+    private bool isOpenedFromMainPage;
+
+    public DetailsViewModel(IDataService dataService)
     {
-        _openAiService = openAiService;
         _dataService = dataService;
     }
 
-    public ImageSource PlantImage => ImageSource.FromStream(() => new MemoryStream(PredictionDetails.PlantImage));
 
     [RelayCommand]
     public void PreviousPage() => Shell.Current.GoToAsync("..");
@@ -46,6 +48,15 @@ public partial class DetailsViewModel : ObservableObject
             Recommendation = PredictionDetails.Recommendation
         };
 
-        await _dataService.SavePrediction(entity);
+        await Shell.Current.DisplayAlert("Success", "Prediction added to database.", "OK");
+
+        try
+        {
+            await _dataService.SavePrediction(entity);
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+        }
     }
 }

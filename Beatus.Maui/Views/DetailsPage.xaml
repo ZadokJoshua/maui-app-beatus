@@ -6,7 +6,8 @@
     xmlns:viewmodel="clr-namespace:Beatus.Maui.ViewModels"
     Title="DetailPage"
     x:DataType="viewmodel:DetailsViewModel"
-    Shell.PresentationMode="Modal">
+    Shell.PresentationMode="Modal"
+    xmlns:toolkit="clr-namespace:CommunityToolkit.Maui;assembly=CommunityToolkit.Maui">
     <ScrollView>
         <Grid RowDefinitions="Auto,Auto" RowSpacing="4">
             <Grid HeightRequest="300" RowDefinitions="Auto,*">
@@ -18,7 +19,8 @@
                 <Grid
                     Grid.Row="0"
                     Margin="20"
-                    ColumnDefinitions="*,*">
+                    ColumnDefinitions="*,*"
+                    Opacity=".8">
                     <Image
                         Grid.Column="0"
                         HeightRequest="30"
@@ -31,11 +33,24 @@
                     </Image>
                     <Button
                         Grid.Column="1"
+                        IsVisible="{Binding IsOpenedFromMainPage}"
+                        Command="{Binding SavePredictionCommand}"
                         FontSize="16"
                         HeightRequest="40"
                         HorizontalOptions="End"
                         Style="{StaticResource ButtonStyle}"
                         Text="Save"
+                        VerticalOptions="Center" />
+                    
+                    <Button
+                        Grid.Column="1"
+                        IsVisible="{Binding IsOpenedFromMainPage}"
+                        Command="{Binding SavePredictionCommand}"
+                        FontSize="16"
+                        HeightRequest="40"
+                        HorizontalOptions="End"
+                        Style="{StaticResource ButtonStyle}"
+                        Text="Delete"
                         VerticalOptions="Center" />
                 </Grid>
             </Grid>
@@ -52,7 +67,7 @@
                     FontFamily="RubikRegular"
                     FontSize="Medium"
                     Text="{Binding PredictionDetails.Probability, StringFormat='Probability: {0}%'}" />
-                <Line BackgroundColor="#243B24" Margin="0,8" />
+                <Line Margin="0,8" BackgroundColor="#243B24" />
                 <Label
                     FontFamily="RubikRegular"
                     FontSize="Body"

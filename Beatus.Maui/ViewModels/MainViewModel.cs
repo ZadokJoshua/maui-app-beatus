@@ -102,6 +102,9 @@ public partial class MainViewModel : ObservableObject
                     {
                         {
                             "PredictionDetails", details
+                        },
+                        {
+                            "IsOpenedFromMainPage", true
                         }
                     });
                 }

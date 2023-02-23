@@ -1,26 +1,58 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Beatus.Maui.Views.SavedPage"
-             Title="SavedPage"
-             Shell.NavBarIsVisible="False">
+<ContentPage
+    x:Class="Beatus.Maui.Views.SavedPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:Beatus.Maui.Models"
+    xmlns:viewmodel="clr-namespace:Beatus.Maui.ViewModels"
+    Title="SavedPage"
+    x:DataType="viewmodel:SavedViewModel"
+    BackgroundImageSource="bg.jpg"
+    Shell.NavBarIsVisible="False">
     <VerticalStackLayout Margin="20">
-        <Label 
-            Text="TODO: Saved Predictions"
-            VerticalOptions="Center" 
-            HorizontalOptions="Start" />
 
-        <ListView>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout>
-                            <!-- Template to use -->
-                            <!--<Label Text="{Binding Name}" />
-                            <Label Text="{Binding Description}" />-->
-                        </StackLayout>
-                    </ViewCell>
+        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="6">
+
+            <Label
+                Grid.Column="1"
+                FontFamily="RubikMedium"
+                FontSize="30"
+                Text="Saved Predictions"
+                TextColor="White"
+                VerticalOptions="Center" />
+            <ActivityIndicator
+                Grid.Column="1"
+                HeightRequest="40"
+                HorizontalOptions="End"
+                IsRunning="{x:Binding IsBusy}"
+                IsVisible="{x:Binding IsBusy}"
+                VerticalOptions="Center"
+                WidthRequest="40"
+                Color="White" />
+        </Grid>
+
+        <CollectionView
+            Margin="0,10"
+            ItemsSource="{Binding SavedPredictions}"
+            SelectedItem="{Binding SelectedPrediction}"
+            SelectionChangedCommand="{Binding ViewPredictionDetailsCommand}"
+            SelectionMode="Single">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="4" Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:PredictionDetailsEntity">
+                    <Grid>
+                        <!--In the frame below, the alpha value 90 is the hexadecimal equivalent of 128, which is halfway between 0 and 255, representing 50% opacity. Thus, Transperency level is #90 and colour is 243B24 -->
+                        <Frame BackgroundColor="#90243B24" CornerRadius="10" Padding="15">
+                            <StackLayout>
+                                <Label FontSize="Subtitle" FontFamily="RubikRegular" FontAttributes="Bold"  Text="{Binding TagName}" />
+                                <Label FontSize="Micro" Text="{Binding DateAdded}" />
+                            </StackLayout>
+                        </Frame>
+                    </Grid>
                 </DataTemplate>
-        </ListView>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </VerticalStackLayout>
 </ContentPage>

@@ -14,10 +14,10 @@ public class DataService : IDataService
         _database = new SQLiteAsyncConnection(dbPath);
         _database.CreateTableAsync<PredictionDetailsEntity>();
     }
-
+    
     public async Task<List<PredictionDetailsEntity>> GetAllSavedPredictionsAsync()
     {
-        return await _database.Table<PredictionDetailsEntity>().ToListAsync();
+        return await _database.Table<PredictionDetailsEntity>().OrderByDescending(x => x.DateAdded).ToListAsync();
     }
 
     public async Task<PredictionDetailsEntity> GetSavedPrediction(int id)
