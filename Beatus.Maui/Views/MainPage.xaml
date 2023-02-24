@@ -8,7 +8,6 @@
     x:DataType="viewmodel:MainViewModel"
     BackgroundImageSource="bg.jpg"
     Shell.NavBarIsVisible="False">
-
     <ContentPage.Behaviors>
         <mct:StatusBarBehavior StatusBarColor="#050705" />
     </ContentPage.Behaviors>

@@ -60,9 +60,18 @@ public partial class MainViewModel : ObservableObject
             OnPropertyChanged(nameof(SelectedPhoto));
         }
     }
-
-    [ObservableProperty]
+    
     private bool isBusy;
+
+    public bool IsBusy
+    {
+        get { return isBusy; }
+        set
+        {
+            isBusy = value;
+            OnPropertyChanged(nameof(IsBusy));
+        }
+    }
 
 
     [RelayCommand]

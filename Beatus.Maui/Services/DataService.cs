@@ -32,6 +32,6 @@ public class DataService : IDataService
 
     public async Task<int> DeletePrediction(PredictionDetailsEntity entity)
     {
-        return await _database.InsertAsync(entity);
+        return await _database.DeleteAsync(entity);
     }
 }

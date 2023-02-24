@@ -60,8 +60,6 @@
 	  <None Remove="Resources\Images\back.svg" />
 	  <None Remove="Resources\Images\beatus_logo.png" />
 	  <None Remove="Resources\Images\bookmarks_icon.svg" />
-	  <None Remove="Resources\Images\camera.svg" />
-	  <None Remove="Resources\Images\image.svg" />
 	  <None Remove="Resources\Images\previous.png" />
 	  <None Remove="Resources\Images\save.svg" />
 	  <None Remove="Resources\Images\search_icon.svg" />

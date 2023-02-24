@@ -15,8 +15,10 @@ public partial class SavedViewModel : ObservableObject
     private PredictionDetailsEntity selectedPrediction;
     [ObservableProperty]
     private bool isBusy;
-    
-    
+    [ObservableProperty]
+    private bool isPredictionEmpty;
+
+
     public ObservableCollection<PredictionDetailsEntity> SavedPredictions { get; private set; }
 
     public SavedViewModel(IDataService dataService)
@@ -28,6 +30,13 @@ public partial class SavedViewModel : ObservableObject
     public async Task LoadSavedPredictions()
     {
         var predictions = await _dataService.GetAllSavedPredictionsAsync();
+        
+        if (!predictions.Any())
+        {
+            IsPredictionEmpty = true;
+            return;
+        }
+        
         SavedPredictions.Clear();
         foreach (var prediction in predictions)
         {
@@ -56,6 +65,9 @@ public partial class SavedViewModel : ObservableObject
                 },
                 {
                     "IsOpenedFromMainPage", false
+                },
+                {
+                    "EntityId", SelectedPrediction.Id
                 }
             });
         }

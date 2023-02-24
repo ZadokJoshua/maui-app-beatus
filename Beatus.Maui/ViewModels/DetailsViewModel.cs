@@ -8,6 +8,7 @@ namespace Beatus.Maui.ViewModels;
 
 [QueryProperty(nameof(PredictionDetails), "PredictionDetails")]
 [QueryProperty(nameof(IsOpenedFromMainPage), "IsOpenedFromMainPage")]
+[QueryProperty(nameof(EntityId), "EntityId")]
 public partial class DetailsViewModel : ObservableObject
 {
     private PredictionDetails predictionDetails;
@@ -27,6 +28,9 @@ public partial class DetailsViewModel : ObservableObject
 
     [ObservableProperty]
     private bool isOpenedFromMainPage;
+
+    [ObservableProperty]
+    private int entityId;
 
     public DetailsViewModel(IDataService dataService)
     {
@@ -57,6 +61,23 @@ public partial class DetailsViewModel : ObservableObject
         catch (Exception ex)
         {
             await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+        }
+    }
+
+    [RelayCommand]
+    public async Task DeletePrediction()
+    {
+        try
+        {
+            var entity = await _dataService.GetSavedPrediction(EntityId);
+            await _dataService.DeletePrediction(entity);
+
+            PreviousPage();
+        }
+        catch (Exception)
+        {
+
+            throw;
         }
     }
 }

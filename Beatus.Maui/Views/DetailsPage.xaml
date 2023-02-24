@@ -3,11 +3,12 @@
     x:Class="Beatus.Maui.Views.DetailsPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:CommunityToolkit.Maui.Converters;assembly=CommunityToolkit.Maui"
     xmlns:viewmodel="clr-namespace:Beatus.Maui.ViewModels"
     Title="DetailPage"
     x:DataType="viewmodel:DetailsViewModel"
-    Shell.PresentationMode="Modal"
-    xmlns:toolkit="clr-namespace:CommunityToolkit.Maui;assembly=CommunityToolkit.Maui">
+    Shell.PresentationMode="Modal">
+
     <ScrollView>
         <Grid RowDefinitions="Auto,Auto" RowSpacing="4">
             <Grid HeightRequest="300" RowDefinitions="Auto,*">
@@ -33,24 +34,25 @@
                     </Image>
                     <Button
                         Grid.Column="1"
-                        IsVisible="{Binding IsOpenedFromMainPage}"
                         Command="{Binding SavePredictionCommand}"
                         FontSize="16"
                         HeightRequest="40"
                         HorizontalOptions="End"
+                        IsVisible="{Binding IsOpenedFromMainPage}"
                         Style="{StaticResource ButtonStyle}"
                         Text="Save"
                         VerticalOptions="Center" />
-                    
+
                     <Button
                         Grid.Column="1"
-                        IsVisible="{Binding IsOpenedFromMainPage}"
-                        Command="{Binding SavePredictionCommand}"
+                        Command="{Binding DeletePredictionCommand}"
                         FontSize="16"
                         HeightRequest="40"
                         HorizontalOptions="End"
+                        IsVisible="{Binding IsOpenedFromMainPage, Converter={converters:InvertedBoolConverter}}"
                         Style="{StaticResource ButtonStyle}"
                         Text="Delete"
+                        BackgroundColor="#F25022"
                         VerticalOptions="Center" />
                 </Grid>
             </Grid>
