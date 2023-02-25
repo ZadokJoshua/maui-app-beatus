@@ -20,8 +20,7 @@
                 <Grid
                     Grid.Row="0"
                     Margin="20"
-                    ColumnDefinitions="*,*"
-                    Opacity=".8">
+                    ColumnDefinitions="*,*">
                     <Image
                         Grid.Column="0"
                         HeightRequest="30"
@@ -45,6 +44,7 @@
 
                     <Button
                         Grid.Column="1"
+                        BackgroundColor="#F44336"
                         Command="{Binding DeletePredictionCommand}"
                         FontSize="16"
                         HeightRequest="40"
@@ -52,7 +52,6 @@
                         IsVisible="{Binding IsOpenedFromMainPage, Converter={converters:InvertedBoolConverter}}"
                         Style="{StaticResource ButtonStyle}"
                         Text="Delete"
-                        BackgroundColor="#F25022"
                         VerticalOptions="Center" />
                 </Grid>
             </Grid>

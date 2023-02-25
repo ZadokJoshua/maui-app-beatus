@@ -14,10 +14,12 @@ public partial class SavedPage : ContentPage
         BindingContext = savedViewModel;
     }
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
-
-        _savedViewModel.LoadSavedPredictions();
+        
+        _savedViewModel.IsBusy = true;
+        await _savedViewModel.LoadSavedPredictions();
+        _savedViewModel.IsBusy = false;
     }
 }

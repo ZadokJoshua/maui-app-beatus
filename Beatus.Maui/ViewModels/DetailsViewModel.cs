@@ -63,21 +63,25 @@ public partial class DetailsViewModel : ObservableObject
             await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
         }
     }
-
+    
     [RelayCommand]
     public async Task DeletePrediction()
     {
-        try
-        {
-            var entity = await _dataService.GetSavedPrediction(EntityId);
-            await _dataService.DeletePrediction(entity);
+        bool deletePrediction = await Shell.Current.DisplayAlert("Delete", "Do you want to delete this prediction", "Yes", "No");
 
-            PreviousPage();
-        }
-        catch (Exception)
+        if (deletePrediction)
         {
+            try
+            {
+                var entity = await _dataService.GetSavedPrediction(EntityId);
+                await _dataService.DeletePrediction(entity);
 
-            throw;
+                PreviousPage();
+            }
+            catch (Exception)
+            {
+                await Shell.Current.DisplayAlert("Error", "Something went wrong", "OK");    
+            }
         }
     }
 }

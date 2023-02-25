@@ -118,9 +118,10 @@ public partial class MainViewModel : ObservableObject
                     });
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+                await Shell.Current.DisplayAlert("Error", "Please check your Internet connection", "OK");
+
             }
             IsBusy = false;
         }
