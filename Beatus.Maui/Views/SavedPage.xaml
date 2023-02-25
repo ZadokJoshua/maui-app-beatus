@@ -26,7 +26,7 @@
                 VerticalOptions="Center" />
             <ActivityIndicator
                 Grid.Column="1"
-                HeightRequest="40"
+                HeightRequest="30"
                 HorizontalOptions="End"
                 IsRunning="{x:Binding IsBusy}"
                 IsVisible="{x:Binding IsBusy}"
@@ -36,55 +36,55 @@
         </Grid>
 
         <CollectionView
+            x:Name="collectionOfPredictions"
             Grid.Row="1"
             Margin="0,10"
+            HorizontalOptions="Center"
             IsVisible="{Binding IsPredictionEmpty, Converter={converters:InvertedBoolConverter}}"
             ItemsSource="{Binding SavedPredictions}"
             SelectedItem="{Binding SelectedPrediction}"
             SelectionChangedCommand="{Binding ViewPredictionDetailsCommand}"
-            SelectionMode="Single">
+            SelectionMode="Single"
+            VerticalOptions="Start">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout ItemSpacing="4" Orientation="Vertical" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:PredictionDetailsEntity">
-                    <Grid>
-                        <!--  In the frame below, the alpha value 90 is the hexadecimal equivalent of 128, which is halfway between 0 and 255, representing 50% opacity. Thus, Transperency level is #90 and colour is 243B24  -->
-                        <Frame
-                            Padding="15"
-                            BackgroundColor="#90243B24"
-                            CornerRadius="10">
-                            <StackLayout>
-                                <Label
-                                    FontAttributes="Bold"
-                                    FontFamily="RubikRegular"
-                                    FontSize="Subtitle"
-                                    Text="{Binding TagName}" />
-                                <Label FontSize="Micro" Text="{Binding DateAdded}" />
-                            </StackLayout>
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding }" CommandParameter="{Binding .}"/>
-                            </Frame.GestureRecognizers>
-                        </Frame>
-                    </Grid>
+                    <Border
+                        Grid.Row="1"
+                        Padding="15"
+                        BackgroundColor="#90243B24"
+                        Stroke="Dimgray"
+                        StrokeThickness="2">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10,10,10,10" />
+                        </Border.StrokeShape>
+                        <VerticalStackLayout>
+                            <Label
+                                FontAttributes="Bold"
+                                FontFamily="RubikRegular"
+                                FontSize="Subtitle"
+                                Text="{Binding TagName}" />
+                            <Label FontSize="Micro" Text="{Binding DateAdded}" />
+                        </VerticalStackLayout>
+                    </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
 
-        <Frame
+
+        <Label
             Grid.Row="1"
-            Padding="15"
             BackgroundColor="#90243B24"
-            CornerRadius="10"
+            FontAttributes="Bold"
+            FontFamily="RubikRegular"
+            FontSize="Large"
             HorizontalOptions="Center"
-            VerticalOptions="Center"
-            IsVisible="{Binding IsPredictionEmpty}">
-            <Label
-                FontAttributes="Bold"
-                FontFamily="RubikRegular"
-                Text="No saved predictions"
-                TextColor="White" />
-        </Frame>
+            IsVisible="{Binding IsPredictionEmpty}"
+            Text="No saved predictions"
+            TextColor="White"
+            VerticalOptions="Center" />
     </Grid>
 </ContentPage>

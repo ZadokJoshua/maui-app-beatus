@@ -43,7 +43,7 @@
                 <Label
                     FontFamily="RubikLight"
                     FontSize="Medium"
-                    Text="Plant leaf disease detection tool"
+                    Text="Plant Leaf Disease Detection"
                     TextColor="White" />
             </VerticalStackLayout>
 
@@ -58,7 +58,7 @@
                     FontSize="Small"
                     HorizontalOptions="Center"
                     HorizontalTextAlignment="Center"
-                    Text="Please choose a clear image of a leaf for the app to predict the type of disease"
+                    Text="Please capture or select a clear image of a leaf to predict the type of disease"
                     TextColor="White" />
                 <Border
                     Margin="0"
