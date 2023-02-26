@@ -14,7 +14,7 @@ public partial class SavedViewModel : ObservableObject
     private readonly IDataService _dataService;
 
     [ObservableProperty]
-    private PredictionDetailsEntity? selectedPrediction;
+    private PredictionDetailsEntity selectedPrediction;
     [ObservableProperty]
     private bool isBusy;
     [ObservableProperty]
