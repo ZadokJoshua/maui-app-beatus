@@ -1,10 +1,10 @@
-﻿using Beatus.Maui.Models;
-using Beatus.Maui.Services;
-using Beatus.Maui.Services.Interfaces;
+﻿using Beatus.Models;
+using Beatus.Services;
+using Beatus.Services.Interfaces;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-namespace Beatus.Maui.ViewModels;
+namespace Beatus.ViewModels;
 
 [QueryProperty(nameof(PredictionDetails), "PredictionDetails")]
 [QueryProperty(nameof(IsOpenedFromMainPage), "IsOpenedFromMainPage")]

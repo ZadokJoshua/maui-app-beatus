@@ -1,13 +1,13 @@
-﻿using Beatus.Maui.Models;
-using Beatus.Maui.Services.Interfaces;
+﻿using Beatus.Models;
+using Beatus.Services.Interfaces;
 using SQLite;
 
-namespace Beatus.Maui.Services;
+namespace Beatus.Services;
 
 public class DataService : IDataService
 {
     private readonly SQLiteAsyncConnection _database;
-    
+
 
     public DataService()
     {
@@ -15,7 +15,7 @@ public class DataService : IDataService
         _database = new SQLiteAsyncConnection(dbPath);
         _database.CreateTableAsync<PredictionDetailsEntity>();
     }
-    
+
     public async Task<List<PredictionDetailsEntity>> GetAllSavedPredictionsAsync()
     {
         return await _database.Table<PredictionDetailsEntity>().OrderByDescending(x => x.DateAdded).ToListAsync();

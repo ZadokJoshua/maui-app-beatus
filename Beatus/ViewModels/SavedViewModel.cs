@@ -1,13 +1,12 @@
 ﻿#nullable enable
 
-using Beatus.Maui.Models;
-using Beatus.Maui.Services.Interfaces;
-using Beatus.Maui.Views;
+using Beatus.Models;
+using Beatus.Services.Interfaces;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 
-namespace Beatus.Maui.ViewModels;
+namespace Beatus.ViewModels;
 
 public partial class SavedViewModel : ObservableObject
 {
@@ -62,7 +61,7 @@ public partial class SavedViewModel : ObservableObject
             };
 
         
-            await Shell.Current.GoToAsync(nameof(DetailsPage), new Dictionary<string, object>
+            await Shell.Current.GoToAsync("DetailsPage", new Dictionary<string, object>
             {
                 {
                     "PredictionDetails", prediction

@@ -1,13 +1,12 @@
-﻿using Beatus.Maui.Models;
-using Beatus.Maui.Services;
-using Beatus.Maui.Views;
+﻿using Beatus.Models;
+using Beatus.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using SkiaSharp;
 
-namespace Beatus.Maui.ViewModels;
+namespace Beatus.ViewModels;
 
 public partial class MainViewModel : ObservableObject
 {
@@ -114,7 +113,7 @@ public partial class MainViewModel : ObservableObject
                         Recommendation = openAiResponse
                     };
 
-                    await Shell.Current.GoToAsync(nameof(DetailsPage), new Dictionary<string, object>
+                    await Shell.Current.GoToAsync("DetailsPage", new Dictionary<string, object>
                     {
                         {
                             "PredictionDetails", details

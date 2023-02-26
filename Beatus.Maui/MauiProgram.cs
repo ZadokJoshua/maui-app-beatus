@@ -34,12 +34,11 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<IConfiguration>(config);
 
-        builder.Services.AddSingleton<MainViewModel>();
-		builder.Services.AddSingleton<MainPage>();
-		
-        builder.Services.AddSingleton<DetailsViewModel>();
         builder.Services.AddSingleton<DetailsPage>();
-		builder.Services.AddSingleton<SavedPage>();
+        builder.Services.AddSingleton<SavedPage>();
+        builder.Services.AddSingleton<MainPage>();
+        builder.Services.AddSingleton<MainViewModel>();
+        builder.Services.AddSingleton<DetailsViewModel>();
 		builder.Services.AddSingleton<SavedViewModel>();
 
         builder.Services.AddScoped<OpenAiService>();

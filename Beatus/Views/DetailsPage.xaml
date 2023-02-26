@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Beatus.Views.DetailsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:CommunityToolkit.Maui.Converters;assembly=CommunityToolkit.Maui"
+    xmlns:viewmodel="clr-namespace:Beatus.ViewModels"
+    x:DataType="viewmodel:DetailsViewModel"
+    Shell.PresentationMode="Modal">
+
+    <ScrollView>
+        <Grid RowDefinitions="Auto,Auto" RowSpacing="4">
+            <Grid HeightRequest="300" RowDefinitions="Auto,*">
+                <Image
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Aspect="AspectFill"
+                    Source="{Binding PlantImage}" />
+                <Grid
+                    Grid.Row="0"
+                    Margin="20"
+                    ColumnDefinitions="*,*">
+                    <Button
+                        Grid.Column="0"
+                        Command="{Binding PreviousPageCommand}"
+                        HeightRequest="40"
+                        HorizontalOptions="Start"
+                        ImageSource="previous.png"
+                        Style="{StaticResource ButtonStyle}"
+                        VerticalOptions="Center" />
+                    <!--<Image
+                        Grid.Column="0"
+                        HeightRequest="30"
+                        HorizontalOptions="Start"
+                        Source="previous.png"
+                        VerticalOptions="Center">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding PreviousPageCommand}" />
+                        </Image.GestureRecognizers>
+                    </Image>-->
+                    <Button
+                        Grid.Column="1"
+                        Command="{Binding SavePredictionCommand}"
+                        FontSize="16"
+                        HeightRequest="40"
+                        HorizontalOptions="End"
+                        IsVisible="{Binding IsOpenedFromMainPage}"
+                        Style="{StaticResource ButtonStyle}"
+                        Text="Save"
+                        VerticalOptions="Center" />
+
+                    <Button
+                        Grid.Column="1"
+                        BackgroundColor="#F44336"
+                        Command="{Binding DeletePredictionCommand}"
+                        FontSize="16"
+                        HeightRequest="40"
+                        HorizontalOptions="End"
+                        IsVisible="{Binding IsOpenedFromMainPage, Converter={converters:InvertedBoolConverter}}"
+                        Style="{StaticResource ButtonStyle}"
+                        Text="Delete"
+                        VerticalOptions="Center" />
+                </Grid>
+            </Grid>
+
+            <VerticalStackLayout
+                Grid.Row="1"
+                Margin="10,5"
+                Spacing="5">
+                <Label FontSize="Large" Text="{Binding PredictionDetails.TagName}" />
+                <Label FontSize="Medium" Text="{Binding PredictionDetails.Probability, StringFormat='Probability: {0}%'}" />
+                <Line Margin="0,8" BackgroundColor="#243B24" />
+                <Label FontSize="Body" Text="Recommended Tips:" />
+                <Label FontSize="Body" Text="{Binding PredictionDetails.Recommendation}" />
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>

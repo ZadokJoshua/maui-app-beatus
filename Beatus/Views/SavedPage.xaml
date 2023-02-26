@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="Beatus.Maui.Views.SavedPage"
+    x:Class="Beatus.Views.SavedPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converters="clr-namespace:CommunityToolkit.Maui.Converters;assembly=CommunityToolkit.Maui"
-    xmlns:model="clr-namespace:Beatus.Maui.Models"
-    xmlns:viewmodel="clr-namespace:Beatus.Maui.ViewModels"
-    Title="SavedPage"
+    xmlns:model="clr-namespace:Beatus.Models"
+    xmlns:viewmodel="clr-namespace:Beatus.ViewModels"
     x:DataType="viewmodel:SavedViewModel"
     BackgroundImageSource="bg.jpg"
     Shell.NavBarIsVisible="False">
@@ -19,7 +18,6 @@
 
             <Label
                 Grid.Column="1"
-                FontFamily="RubikMedium"
                 FontSize="30"
                 Text="Saved Predictions"
                 TextColor="White"
@@ -28,8 +26,8 @@
                 Grid.Column="1"
                 HeightRequest="30"
                 HorizontalOptions="End"
-                IsRunning="{x:Binding IsBusy}"
-                IsVisible="{x:Binding IsBusy}"
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
                 VerticalOptions="Center"
                 WidthRequest="40"
                 Color="White" />
@@ -45,8 +43,7 @@
             SelectedItem="{Binding SelectedPrediction}"
             SelectionChangedCommand="{Binding ViewPredictionDetailsCommand}"
             SelectionMode="Single"
-            VerticalOptions="Start"
-            >
+            VerticalOptions="Start">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout ItemSpacing="4" Orientation="Vertical" />
             </CollectionView.ItemsLayout>
@@ -64,7 +61,6 @@
                         <VerticalStackLayout>
                             <Label
                                 FontAttributes="Bold"
-                                FontFamily="RubikRegular"
                                 FontSize="Subtitle"
                                 Text="{Binding TagName}" />
                             <Label FontSize="Micro" Text="{Binding DateAdded}" />
@@ -80,7 +76,6 @@
             Grid.Row="1"
             BackgroundColor="#90243B24"
             FontAttributes="Bold"
-            FontFamily="RubikRegular"
             FontSize="Large"
             HorizontalOptions="Center"
             IsVisible="{Binding IsPredictionEmpty}"
