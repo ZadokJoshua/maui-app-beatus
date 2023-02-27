@@ -9,6 +9,7 @@
     x:DataType="viewmodel:SavedViewModel"
     BackgroundImageSource="bg.jpg"
     Shell.NavBarIsVisible="False">
+
     <Grid Margin="20" RowDefinitions="Auto,*">
 
         <Grid

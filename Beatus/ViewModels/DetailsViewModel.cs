@@ -13,6 +13,7 @@ public partial class DetailsViewModel : ObservableObject
 {
     private PredictionDetails predictionDetails;
     private readonly IDataService _dataService;
+
     public ImageSource PlantImage => ImageSource.FromStream(() => new MemoryStream(PredictionDetails.PlantImage));
 
     public PredictionDetails PredictionDetails
@@ -66,7 +67,7 @@ public partial class DetailsViewModel : ObservableObject
     [RelayCommand]
     public async Task DeletePrediction()
     {
-        bool deletePrediction = await Shell.Current.DisplayAlert("Delete", "Do you want to delete this prediction", "Yes", "No");
+        bool deletePrediction = await Shell.Current.DisplayAlert("Delete", "Do you want to delete this prediction?", "Yes", "No");
 
         if (deletePrediction)
         {

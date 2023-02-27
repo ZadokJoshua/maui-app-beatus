@@ -25,7 +25,7 @@ namespace Beatus
 
 
             var a = Assembly.GetExecutingAssembly();
-            using var stream = a.GetManifestResourceStream("Beatus.Maui.appsettings.json");
+            using var stream = a.GetManifestResourceStream("Beatus.appsettings.json");
             var config = new ConfigurationBuilder().AddJsonStream(stream).Build();
 
             builder.Services.AddSingleton<IConfiguration>(config);

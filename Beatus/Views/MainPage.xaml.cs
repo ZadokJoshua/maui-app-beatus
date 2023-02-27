@@ -4,11 +4,21 @@ namespace Beatus.Views;
 
 public partial class MainPage : ContentPage
 {
-	public MainPage(MainViewModel mainViewModel)
+    private readonly MainViewModel _mainViewModel;
+
+    public MainPage(MainViewModel mainViewModel)
 	{
 		InitializeComponent();
 
-		BindingContext = mainViewModel;
-	}
+        _mainViewModel = mainViewModel;
+        BindingContext = mainViewModel;
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        _mainViewModel.Cancel();
+    }
 }
 

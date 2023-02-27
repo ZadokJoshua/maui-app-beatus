@@ -13,7 +13,8 @@
             Title="Identify"
             ContentTemplate="{DataTemplate views:MainPage}"
             Icon="search_icon.png"
-            Route="MainPage" />
+            Route="MainPage" 
+            />
 
         <ShellContent
             Title="Saved"
@@ -21,5 +22,5 @@
             Icon="bookmarks_icon.png"
             Route="SavedPage" />
     </TabBar>
-    
+
 </Shell>

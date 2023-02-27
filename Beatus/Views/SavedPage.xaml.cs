@@ -17,7 +17,7 @@ public partial class SavedPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        
+
         _savedViewModel.IsBusy = true;
         await _savedViewModel.LoadSavedPredictions();
         _savedViewModel.IsBusy = false;

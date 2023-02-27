@@ -25,19 +25,12 @@
                         Command="{Binding PreviousPageCommand}"
                         HeightRequest="40"
                         HorizontalOptions="Start"
-                        ImageSource="previous.png"
+                        FontSize="16"
+                        Text="Back"
+                        Background="#050705"
                         Style="{StaticResource ButtonStyle}"
                         VerticalOptions="Center" />
-                    <!--<Image
-                        Grid.Column="0"
-                        HeightRequest="30"
-                        HorizontalOptions="Start"
-                        Source="previous.png"
-                        VerticalOptions="Center">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding PreviousPageCommand}" />
-                        </Image.GestureRecognizers>
-                    </Image>-->
+                    
                     <Button
                         Grid.Column="1"
                         Command="{Binding SavePredictionCommand}"

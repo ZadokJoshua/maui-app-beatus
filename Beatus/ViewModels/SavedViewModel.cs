@@ -30,19 +30,19 @@ public partial class SavedViewModel : ObservableObject
     public async Task LoadSavedPredictions()
     {
         var predictions = await _dataService.GetAllSavedPredictionsAsync();
-        
+        SavedPredictions?.Clear();
+
         if (!predictions.Any())
         {
             IsPredictionEmpty = true;
             return;
         }
         
-        SavedPredictions?.Clear();
-        
         foreach (var prediction in predictions)
         {
             SavedPredictions?.Add(prediction);
         }
+        IsPredictionEmpty = false;
     }
 
     [RelayCommand]
