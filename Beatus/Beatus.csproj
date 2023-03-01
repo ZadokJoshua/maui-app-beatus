@@ -35,7 +35,7 @@
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#243B24" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\leafsvg.svg" BaseSize="128,128" Color="#243B24" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -52,18 +52,22 @@
 	<ItemGroup>
 	  <None Remove="appsettings.json" />
 	  <None Remove="Resources\Images\back.svg" />
-	  <None Remove="Resources\Images\beatus_logo.png" />
 	  <None Remove="Resources\Images\bg.jpg" />
 	  <None Remove="Resources\Images\bookmarks_icon.svg" />
-	  <None Remove="Resources\Images\previous.png" />
+	  <None Remove="Resources\Images\leafpng.png" />
 	  <None Remove="Resources\Images\save.svg" />
 	  <None Remove="Resources\Images\search_icon.svg" />
+	  <None Remove="Resources\Splash\leafsvg.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <EmbeddedResource Include="appsettings.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  
 	</ItemGroup>
 
 	<ItemGroup>

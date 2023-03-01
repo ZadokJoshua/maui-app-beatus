@@ -104,6 +104,19 @@ public partial class MainViewModel : ObservableObject
                 var customVisionAIResponse = await _customVisionAI.MakePredictionAsync(resizedPhoto);
                 if (customVisionAIResponse is not null)
                 {
+                    
+                    if (customVisionAIResponse.Probability < 0.7)
+                    {
+                        await Shell.Current.DisplayAlert("No Plant Detected", "Please try again with a different image", "OK");
+                        return;
+                    }
+                    
+                    if (customVisionAIResponse.TagName.ToLower() == "negative")
+                    {
+                        await Shell.Current.DisplayAlert("No Plant Detected", "Please try again with a different image", "OK");
+                        return;
+                    }
+                    
                     var openAiResponse = await _openAi.GetPlantTips(customVisionAIResponse.TagName);
                     PredictionDetails details = new()
                     {

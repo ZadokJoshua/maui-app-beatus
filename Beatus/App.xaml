@@ -18,7 +18,11 @@
                         <Setter Property="FontSize" Value="20" />
                         <Setter Property="HeightRequest" Value="60" />
                         <Setter Property="CornerRadius" Value="10" />
-                        <Setter Property="TextColor" Value="White" />
+                        <Setter Property="TextColor" Value="#eff5f3" />
+                    </Style>
+
+                    <Style TargetType="Label">
+                        <Setter Property="TextColor" Value="#eff5f3" />
                     </Style>
                 </ResourceDictionary>
 

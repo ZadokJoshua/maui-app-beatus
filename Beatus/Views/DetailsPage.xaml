@@ -6,7 +6,8 @@
     xmlns:converters="clr-namespace:CommunityToolkit.Maui.Converters;assembly=CommunityToolkit.Maui"
     xmlns:viewmodel="clr-namespace:Beatus.ViewModels"
     x:DataType="viewmodel:DetailsViewModel"
-    Shell.PresentationMode="Modal">
+    Shell.PresentationMode="Modal"
+    BackgroundColor="#1D2021">
 
     <ScrollView>
         <Grid RowDefinitions="Auto,Auto" RowSpacing="4">
@@ -27,7 +28,7 @@
                         HorizontalOptions="Start"
                         FontSize="16"
                         Text="Back"
-                        Background="#050705"
+                        Background="#1D2021"
                         Style="{StaticResource ButtonStyle}"
                         VerticalOptions="Center" />
                     
@@ -44,7 +45,7 @@
 
                     <Button
                         Grid.Column="1"
-                        BackgroundColor="#F44336"
+                        BackgroundColor="#F45359"
                         Command="{Binding DeletePredictionCommand}"
                         FontSize="16"
                         HeightRequest="40"
@@ -61,9 +62,9 @@
                 Margin="10,5"
                 Spacing="5">
                 <Label FontSize="Large" Text="{Binding PredictionDetails.TagName}" />
-                <Label FontSize="Medium" Text="{Binding PredictionDetails.Probability, StringFormat='Probability: {0}%'}" />
-                <Line Margin="0,8" BackgroundColor="#243B24" />
-                <Label FontSize="Body" Text="Recommended Tips:" />
+                <Label FontSize="Medium" Text="{Binding PredictionDetails.Probability, StringFormat='Probability: {0}%'}" Margin="0,0,0,8"/>
+                <Line Margin="0" BackgroundColor="White"/>
+                <Label FontSize="Body" Text="Recommended Tips:"/>
                 <Label FontSize="Body" Text="{Binding PredictionDetails.Recommendation}" />
             </VerticalStackLayout>
         </Grid>

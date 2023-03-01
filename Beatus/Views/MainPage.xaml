@@ -20,10 +20,11 @@
                     <Image
                         Grid.Column="0"
                         HeightRequest="40"
-                        Source="beatus_logo.png"
+                        Source="leafpng.png"
                         VerticalOptions="Center"
                         WidthRequest="40" />
                     <Label
+                        Margin="8,0"
                         Grid.Column="1"
                         FontAttributes="Bold"
                         FontSize="30"
@@ -61,7 +62,7 @@
                 <Border
                     Margin="0"
                     Padding="4"
-                    BackgroundColor="Black"
+                    BackgroundColor="#32302F"
                     IsVisible="{Binding ImageSelected}"
                     Stroke="Dimgray"
                     StrokeThickness="2">
@@ -115,10 +116,10 @@
                 </Grid>
 
                 <Button
-                    BackgroundColor="Black"
+                    BackgroundColor="#1D2021"
                     Command="{Binding MakePredictionCommand}"
                     Style="{StaticResource ButtonStyle}"
-                    Text="Make Prediction" />
+                    Text="Make Prediction"/>
             </VerticalStackLayout>
         </Grid>
     </ScrollView>
