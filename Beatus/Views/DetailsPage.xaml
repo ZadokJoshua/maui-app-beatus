@@ -6,67 +6,77 @@
     xmlns:converters="clr-namespace:CommunityToolkit.Maui.Converters;assembly=CommunityToolkit.Maui"
     xmlns:viewmodel="clr-namespace:Beatus.ViewModels"
     x:DataType="viewmodel:DetailsViewModel"
-    Shell.PresentationMode="Modal"
-    BackgroundColor="#1D2021">
+    BackgroundColor="#1D2021"
+    Shell.PresentationMode="Modal">
 
-    <ScrollView>
-        <Grid RowDefinitions="Auto,Auto" RowSpacing="4">
-            <Grid HeightRequest="300" RowDefinitions="Auto,*">
-                <Image
-                    Grid.Row="0"
-                    Grid.RowSpan="2"
-                    Aspect="AspectFill"
-                    Source="{Binding PlantImage}" />
-                <Grid
-                    Grid.Row="0"
-                    Margin="20"
-                    ColumnDefinitions="*,*">
-                    <Button
-                        Grid.Column="0"
-                        Command="{Binding PreviousPageCommand}"
-                        HeightRequest="40"
-                        HorizontalOptions="Start"
-                        FontSize="16"
-                        Text="Back"
-                        Background="#1D2021"
-                        Style="{StaticResource ButtonStyle}"
-                        VerticalOptions="Center" />
-                    
-                    <Button
-                        Grid.Column="1"
-                        Command="{Binding SavePredictionCommand}"
-                        FontSize="16"
-                        HeightRequest="40"
-                        HorizontalOptions="End"
-                        IsVisible="{Binding IsOpenedFromMainPage}"
-                        Style="{StaticResource ButtonStyle}"
-                        Text="Save"
-                        VerticalOptions="Center" />
 
-                    <Button
-                        Grid.Column="1"
-                        BackgroundColor="#F45359"
-                        Command="{Binding DeletePredictionCommand}"
-                        FontSize="16"
-                        HeightRequest="40"
-                        HorizontalOptions="End"
-                        IsVisible="{Binding IsOpenedFromMainPage, Converter={converters:InvertedBoolConverter}}"
-                        Style="{StaticResource ButtonStyle}"
-                        Text="Delete"
-                        VerticalOptions="Center" />
-                </Grid>
+    <Grid RowDefinitions="Auto,*" RowSpacing="4">
+        <Grid HeightRequest="300" RowDefinitions="Auto,*">
+            <Image
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Aspect="AspectFill"
+                Source="{Binding PlantImage}" />
+            <Grid
+                Grid.Row="0"
+                Margin="20"
+                ColumnDefinitions="*,*">
+                <Button
+                    Grid.Column="0"
+                    Background="#1D2021"
+                    Command="{Binding PreviousPageCommand}"
+                    FontSize="16"
+                    HeightRequest="40"
+                    HorizontalOptions="Start"
+                    Style="{StaticResource ButtonStyle}"
+                    Text="Back"
+                    VerticalOptions="Center" />
+
+                <Button
+                    Grid.Column="1"
+                    Command="{Binding SavePredictionCommand}"
+                    FontSize="16"
+                    HeightRequest="40"
+                    HorizontalOptions="End"
+                    IsVisible="{Binding IsOpenedFromMainPage}"
+                    Style="{StaticResource ButtonStyle}"
+                    Text="Save"
+                    VerticalOptions="Center" />
+
+                <Button
+                    Grid.Column="1"
+                    BackgroundColor="#F45359"
+                    Command="{Binding DeletePredictionCommand}"
+                    FontSize="16"
+                    HeightRequest="40"
+                    HorizontalOptions="End"
+                    IsVisible="{Binding IsOpenedFromMainPage, Converter={converters:InvertedBoolConverter}}"
+                    Style="{StaticResource ButtonStyle}"
+                    Text="Delete"
+                    VerticalOptions="Center" />
             </Grid>
-
-            <VerticalStackLayout
+        </Grid>
+        
+        <ScrollView 
                 Grid.Row="1"
+            Orientation="Vertical"
+            VerticalScrollBarVisibility="Always">
+            <VerticalStackLayout
                 Margin="10,5"
                 Spacing="5">
                 <Label FontSize="Large" Text="{Binding PredictionDetails.TagName}" />
-                <Label FontSize="Medium" Text="{Binding PredictionDetails.Probability, StringFormat='Probability: {0}%'}" Margin="0,0,0,8"/>
-                <Line Margin="0" BackgroundColor="White"/>
-                <Label FontSize="Body" Text="Recommended Tips:"/>
+                <Label
+                    Margin="0,0,0,8"
+                    FontSize="Medium"
+                    Text="{Binding PredictionDetails.Probability, StringFormat='Probability: {0}%'}" />
+                <Line Margin="0" BackgroundColor="White" />
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="Body"
+                    Text="Recommended Tips:" />
                 <Label FontSize="Body" Text="{Binding PredictionDetails.Recommendation}" />
             </VerticalStackLayout>
-        </Grid>
-    </ScrollView>
+        </ScrollView>
+    </Grid>
+
 </ContentPage>

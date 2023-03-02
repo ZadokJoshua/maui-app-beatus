@@ -6,15 +6,16 @@
     xmlns:local="clr-namespace:Beatus"
     xmlns:views="clr-namespace:Beatus.Views"
     Shell.FlyoutBehavior="Disabled"
-    Shell.TabBarBackgroundColor="#243B24">
+    Shell.TabBarBackgroundColor="#243B24"
+    Shell.TabBarTitleColor="#eff5f3"
+    Shell.TabBarUnselectedColor="#95a095">
     <!--  Pages not registered in shell as tabs should be registered in App.Shell.cs for routing  -->
     <TabBar>
         <ShellContent
             Title="Identify"
             ContentTemplate="{DataTemplate views:MainPage}"
             Icon="search_icon.png"
-            Route="MainPage" 
-            />
+            Route="MainPage" />
 
         <ShellContent
             Title="Saved"

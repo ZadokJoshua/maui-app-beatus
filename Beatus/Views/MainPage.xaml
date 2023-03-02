@@ -24,9 +24,9 @@
                         VerticalOptions="Center"
                         WidthRequest="40" />
                     <Label
-                        Margin="8,0"
+                        Margin="4,0"
                         Grid.Column="1"
-                        FontAttributes="Bold"
+                        FontFamily="OpenSansSemibold"
                         FontSize="30"
                         Text="Beatus"
                         TextColor="White"

@@ -23,6 +23,7 @@
 
                     <Style TargetType="Label">
                         <Setter Property="TextColor" Value="#eff5f3" />
+                        <Setter Property="FontFamily" Value="OpenSansRegular" />
                     </Style>
                 </ResourceDictionary>
 

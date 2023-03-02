@@ -32,7 +32,10 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-    <MauiIcon Include="Resources\AppIcon\appicon.svg" />
+		<MauiSplashScreen Include="Resources\AppIcon\appicon.svg">
+		  <Color>#243B24</Color>
+		  <BaseSize>128,128</BaseSize>
+		</MauiSplashScreen>
 
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Splash\leafsvg.svg" BaseSize="128,128" Color="#243B24" />
@@ -58,7 +61,6 @@
 	  <None Remove="Resources\Images\leafpng.png" />
 	  <None Remove="Resources\Images\save.svg" />
 	  <None Remove="Resources\Images\search_icon.svg" />
-	  <None Remove="Resources\Raw\emptyanimation.json" />
 	  <None Remove="Resources\Splash\leafsvg.svg" />
 	</ItemGroup>
 
@@ -69,12 +71,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Maui" Version="5.0.0" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="4.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
-		<PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0-preview.61" />
 		<PackageReference Include="SkiaSharp.Views.Maui.Core" Version="2.88.3" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
 		<PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.4" />

@@ -12,7 +12,7 @@ public partial class MainViewModel : ObservableObject
 {
     private const int ImageMaxSizeBytes = 4194304;
     private const int ImageMaxResolution = 1024;
-    
+
     private readonly OpenAiService _openAi;
     private readonly CustomVisionAIService _customVisionAI;
 
@@ -21,7 +21,7 @@ public partial class MainViewModel : ObservableObject
         _openAi = openAi;
         _customVisionAI = customVisionAI;
     }
-    
+
     private ImageSource photo;
 
     public ImageSource Photo
@@ -59,7 +59,7 @@ public partial class MainViewModel : ObservableObject
             OnPropertyChanged(nameof(SelectedPhoto));
         }
     }
-    
+
     private bool isBusy;
 
     public bool IsBusy
@@ -81,12 +81,12 @@ public partial class MainViewModel : ObservableObject
 
     public async Task SelectPhotoAsync(bool useCamera)
     {
-        SelectedPhoto = useCamera ? await MediaPicker.Default.CapturePhotoAsync() 
+        SelectedPhoto = useCamera ? await MediaPicker.Default.CapturePhotoAsync()
             : await MediaPicker.Default.PickPhotoAsync();
 
         if (SelectedPhoto != null)
         {
-            
+
             Photo = SelectedPhoto.FullPath;
             ImageSelected = true;
         }
@@ -95,60 +95,53 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     public async Task MakePredictionAsync()
     {
-        if (ImageSelected)
+        IsBusy = true;
+
+        try
         {
-            IsBusy = true;
-            try
+            if (!ImageSelected)
             {
-                var resizedPhoto = await ResizeImage(SelectedPhoto);
-                var customVisionAIResponse = await _customVisionAI.MakePredictionAsync(resizedPhoto);
-                if (customVisionAIResponse is not null)
+                await Shell.Current.DisplayAlert("No Image Selected", "Please select or capture an image", "OK");
+                return;
+            }
+
+            var resizedPhoto = await ResizeImage(SelectedPhoto);
+            var customVisionAIResponse = await _customVisionAI.MakePredictionAsync(resizedPhoto);
+
+            if (customVisionAIResponse is not null)
+            {
+                if (customVisionAIResponse?.Probability < 0.7 || customVisionAIResponse?.TagName?.ToLower() == "negative")
                 {
-                    
-                    if (customVisionAIResponse.Probability < 0.7)
-                    {
-                        await Shell.Current.DisplayAlert("No Plant Detected", "Please try again with a different image", "OK");
-                        return;
-                    }
-                    
-                    if (customVisionAIResponse.TagName.ToLower() == "negative")
-                    {
-                        await Shell.Current.DisplayAlert("No Plant Detected", "Please try again with a different image", "OK");
-                        return;
-                    }
-                    
-                    var openAiResponse = await _openAi.GetPlantTips(customVisionAIResponse.TagName);
-                    PredictionDetails details = new()
-                    {
-                        PlantImage = resizedPhoto,
-                        TagName = customVisionAIResponse.TagName,
-                        Probability = (int)(customVisionAIResponse.Probability * 100),
-                        Recommendation = openAiResponse
-                    };
-
-                    await Shell.Current.GoToAsync("DetailsPage", new Dictionary<string, object>
-                    {
-                        {
-                            "PredictionDetails", details
-                        },
-                        {
-                            "IsOpenedFromMainPage", true
-                        }
-                    });
+                    await Shell.Current.DisplayAlert("No Plant Detected", "Please try again with a different image", "OK");
+                    return;
                 }
-            }
-            catch (Exception)
-            {
-                await Shell.Current.DisplayAlert("Error", "Please check your Internet connection", "OK");
 
+                var openAiResponse = await _openAi.GetPlantTips(customVisionAIResponse.TagName);
+                var details = new PredictionDetails
+                {
+                    PlantImage = resizedPhoto,
+                    TagName = customVisionAIResponse.TagName,
+                    Probability = (int)(customVisionAIResponse.Probability * 100),
+                    Recommendation = openAiResponse
+                };
+
+                await Shell.Current.GoToAsync("DetailsPage", new Dictionary<string, object>
+                {
+                    { nameof(PredictionDetails), details },
+                    { "IsOpenedFromMainPage", true }
+                });
             }
+        }
+        catch (Exception)
+        {
+            await Shell.Current.DisplayAlert("Error", "Please check your Internet connection", "OK");
+        }
+        finally
+        {
             IsBusy = false;
         }
-        else
-        {
-            await Shell.Current.DisplayAlert("No Image Selected", "Please select or capture an image", "OK");
-        }
     }
+
 
     [RelayCommand]
     public void Cancel()
@@ -171,7 +164,7 @@ public partial class MainViewModel : ObservableObject
                     using (var original = SKBitmap.Decode(skiaStream))
                     {
                         var aspectRatio = (float)original.Width / original.Height;
-                        
+
                         var newWidth = ImageMaxResolution;
                         var newHeight = ImageMaxResolution / aspectRatio;
 

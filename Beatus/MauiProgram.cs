@@ -6,6 +6,7 @@ using CommunityToolkit.Maui;
 using Beatus.Services.Interfaces;
 using Beatus.ViewModels;
 using Beatus.Views;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 
 namespace Beatus
 {
@@ -17,6 +18,7 @@ namespace Beatus
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
+                .UseSkiaSharp()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -40,6 +42,7 @@ namespace Beatus
             builder.Services.AddScoped<OpenAiService>();
             builder.Services.AddScoped<CustomVisionAIService>();
             builder.Services.AddScoped<IDataService, DataService>();
+
 
 #if DEBUG
             builder.Logging.AddDebug();

@@ -5,11 +5,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converters="clr-namespace:CommunityToolkit.Maui.Converters;assembly=CommunityToolkit.Maui"
     xmlns:model="clr-namespace:Beatus.Models"
+    xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
     xmlns:viewmodel="clr-namespace:Beatus.ViewModels"
     x:DataType="viewmodel:SavedViewModel"
     BackgroundImageSource="bg.jpg"
     Shell.NavBarIsVisible="False">
-
     <Grid Margin="20" RowDefinitions="Auto,*">
 
         <Grid
@@ -19,7 +19,7 @@
 
             <Label
                 Grid.Column="1"
-                FontSize="30"
+                FontSize="25"
                 Text="Saved Predictions"
                 TextColor="White"
                 VerticalOptions="Center" />
@@ -66,22 +66,39 @@
                                 Text="{Binding TagName}" />
                             <Label FontSize="Micro" Text="{Binding DateAdded}" />
                         </VerticalStackLayout>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="Selected">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="#809ED368" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
 
+        <VerticalStackLayout Grid.Row="1" 
+                IsVisible="{Binding IsPredictionEmpty}"
+                HorizontalOptions="Center"
+                VerticalOptions="Center" 
+                             >
+            <skia:SKLottieView Source="emptyanimation.json"
+                               HeightRequest="200"
+                               RepeatCount="-1"/>
 
-        <Label
-            Grid.Row="1"
-            BackgroundColor="#90243B24"
-            FontAttributes="Bold"
-            FontSize="Large"
-            HorizontalOptions="Center"
-            IsVisible="{Binding IsPredictionEmpty}"
-            Text="No saved predictions"
-            TextColor="White"
-            VerticalOptions="Center" />
+
+            <Label
+                FontAttributes="Bold"
+                FontSize="Small"
+                HorizontalOptions="Center"
+                Text="No saved predictions"
+                TextColor="White"
+                VerticalOptions="Center" />
+        </VerticalStackLayout>
     </Grid>
 </ContentPage>
