@@ -92,6 +92,7 @@ public partial class MainViewModel : ObservableObject
         }
     }
 
+    
     [RelayCommand]
     public async Task MakePredictionAsync()
     {
@@ -151,6 +152,11 @@ public partial class MainViewModel : ObservableObject
         ImageSelected = false;
     }
 
+    /// <summary>
+    /// Resize the image to a max resolution of 1024x1024
+    /// </summary>
+    /// <param name="photo"></param>
+    /// <returns>Byte Array</returns>
     private async Task<byte[]> ResizeImage(FileResult photo)
     {
         byte[] result = null;
