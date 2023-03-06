@@ -20,9 +20,3 @@ Plant leaf disease detection application built using .NET MAUI, C# and third par
 * Tomato leaf diseases - https://data.mendeley.com/datasets/369cky7n39/1
 * Cassava leaf diseases - https://data.mendeley.com/datasets/3832tx2cb2
 * Corn leaf diseases - https://www.kaggle.com/datasets/vipoooool/new-plant-diseases-dataset?resource=download
-
-### Sources
-- App Icon:
-- Background Image:
-
-
