@@ -1,5 +1,7 @@
 # Beatus
-A .NET MAUI Plant leaf disease detection application. This application leverages like Custom Vision AI and Open AI-GPT3.
+This plant leaf disease detection application was built using .NET MAUI, C#, and third-party tools such as Custom Vision and OpenAI GPT-3. The custom vision model used in the application was trained using labeled images of tomato, cassava, and corn leaf diseases.
+
+When the model makes a correct prediction, the application passes the Tagname obtained to the OpenAI GPT-3 API. OpenAI GPT-3 generates recommended tips for the current condition of the plant, providing valuable insights into how best to manage the disease and ensure the plant's health. Predictions can also be saved to a database for off-line access.
 
 <p align="center">
 <kbd style="margin: 4px; background: #282828;">
@@ -14,7 +16,7 @@ A .NET MAUI Plant leaf disease detection application. This application leverages
 </p>
 
 ## Getting Started
-To get started with Beatus, follow these steps:
+To get started, follow these steps:
 
 * Clone this repository and open it in Visual Studio 2022.
 
@@ -38,9 +40,10 @@ To get started with Beatus, follow these steps:
     
 * Build and run the application. 
 ## Datasets:
+The custom vision model was trained using the following datasets:
 * Tomato leaf diseases - https://data.mendeley.com/datasets/369cky7n39/1
 * Cassava leaf diseases - https://data.mendeley.com/datasets/3832tx2cb2
-* Corn leaf diseases - https://www.kaggle.com/datasets/vipoooool/new-plant-diseases-dataset?resource=download
+* New Plant Diseases Dataset (Corn) - https://www.kaggle.com/datasets/vipoooool/new-plant-diseases-dataset?resource=download
 
 #
-*Note: Please be aware that this application has not been tested on Mac or iOS devices. The app was developed using .NET MAUI, which is a cross-platform framework, but it's still possible that some features may not work as expected on these platforms.*
+*Please note that the app has not been tested on Mac or iOS devices, although it was developed using .NET MAUI, which is a cross-platform framework, it's still possible that some features may not work as expected on these platforms.*

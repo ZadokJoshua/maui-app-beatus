@@ -97,45 +97,53 @@ public partial class MainViewModel : ObservableObject
     public async Task MakePredictionAsync()
     {
         IsBusy = true;
-
+        NetworkAccess accessType = Connectivity.Current.NetworkAccess;
+        
         try
         {
-            if (!ImageSelected)
+            if (accessType == NetworkAccess.Internet)
             {
-                await Shell.Current.DisplayAlert("No Image Selected", "Please select or capture an image", "OK");
-                return;
-            }
-
-            var resizedPhoto = await ResizeImage(SelectedPhoto);
-            var customVisionAIResponse = await _customVisionAI.MakePredictionAsync(resizedPhoto);
-
-            if (customVisionAIResponse is not null)
-            {
-                if (customVisionAIResponse?.Probability < 0.7 || customVisionAIResponse?.TagName?.ToLower() == "negative")
+                if (!ImageSelected)
                 {
-                    await Shell.Current.DisplayAlert("No Plant Detected", "Please try again with a different image", "OK");
+                    await Shell.Current.DisplayAlert("No Image Selected", "Please select or capture an image", "OK");
                     return;
                 }
 
-                var openAiResponse = await _openAi.GetPlantTips(customVisionAIResponse.TagName);
-                var details = new PredictionDetails
-                {
-                    PlantImage = resizedPhoto,
-                    TagName = customVisionAIResponse.TagName,
-                    Probability = (int)(customVisionAIResponse.Probability * 100),
-                    Recommendation = openAiResponse
-                };
+                var resizedPhoto = await ResizeImage(SelectedPhoto);
+                var customVisionAIResponse = await _customVisionAI.MakePredictionAsync(resizedPhoto);
 
-                await Shell.Current.GoToAsync("DetailsPage", new Dictionary<string, object>
+                if (customVisionAIResponse is not null)
+                {
+                    if (customVisionAIResponse?.Probability < 0.7 || customVisionAIResponse?.TagName?.ToLower() == "negative")
+                    {
+                        await Shell.Current.DisplayAlert("No Plant Detected", "Please try again with a different image", "OK");
+                        return;
+                    }
+
+                    var openAiResponse = await _openAi.GetPlantTips(customVisionAIResponse.TagName);
+                    var details = new PredictionDetails
+                    {
+                        PlantImage = resizedPhoto,
+                        TagName = customVisionAIResponse.TagName,
+                        Probability = (int)(customVisionAIResponse.Probability * 100),
+                        Recommendation = openAiResponse
+                    };
+
+                    await Shell.Current.GoToAsync("DetailsPage", new Dictionary<string, object>
                 {
                     { nameof(PredictionDetails), details },
                     { "IsOpenedFromMainPage", true }
                 });
+                }
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("No Internet Connection", "Please check your Internet connection", "OK");
             }
         }
         catch (Exception)
         {
-            await Shell.Current.DisplayAlert("Error", "Please check your Internet connection", "OK");
+            await Shell.Current.DisplayAlert("Error", "An error occurred.", "OK");
         }
         finally
         {

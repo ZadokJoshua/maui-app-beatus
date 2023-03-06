@@ -32,7 +32,7 @@ public class OpenAiService
             );
 
             var content = new StringContent(JsonConvert.SerializeObject(requestData), Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await client.PostAsync($"{_config["OpenAI:Endpoint"]}", content);
+            HttpResponseMessage response = await client.PostAsync(_config["OpenAI:Endpoint"], content);
 
             var responseJson = await response.Content.ReadAsStringAsync();
 
