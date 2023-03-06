@@ -4,13 +4,13 @@ Plant leaf disease detection application built using .NET MAUI, C# and third par
 
 <p align="center">
 <kbd>
-<img src="/Images/20230306_161402.jpg" Height=250/>
+<img src="/Images/20230306_161402.jpg" Height=300/>
 </kbd>
 <kbd>
-<img src="/Images/20230306_162630.jpg" Height=250/>
+<img src="/Images/20230306_162630.jpg" Height=300/>
 </kbd>
 <kbd>
-<img src="/Images/20230306_161223.jpg" Height=250/>
+<img src="/Images/20230306_161223.jpg" Height=300/>
 </kbd>
 </p>
 
