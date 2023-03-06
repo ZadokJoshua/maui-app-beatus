@@ -1,4 +1,5 @@
 using Beatus.ViewModels;
+using System.Diagnostics;
 
 namespace Beatus.Views;
 
@@ -18,8 +19,16 @@ public partial class SavedPage : ContentPage
     {
         base.OnAppearing();
 
-        _savedViewModel.IsBusy = true;
-        await _savedViewModel.LoadSavedPredictions();
-        _savedViewModel.IsBusy = false;
+        try
+        {
+            _savedViewModel.IsBusy = true;
+            await _savedViewModel.LoadSavedPredictions();
+            _savedViewModel.IsBusy = false;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+        }
     }
+
 }
