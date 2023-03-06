@@ -42,3 +42,6 @@ To get started with Beatus, follow these steps:
 * Tomato leaf diseases - https://data.mendeley.com/datasets/369cky7n39/1
 * Cassava leaf diseases - https://data.mendeley.com/datasets/3832tx2cb2
 * Corn leaf diseases - https://www.kaggle.com/datasets/vipoooool/new-plant-diseases-dataset?resource=download
+
+#
+*Note: Please be aware that this application has not been tested on Mac or iOS devices. The app was developed using .NET MAUI, which is a cross-platform framework, but it's still possible that some features may not work as expected on these platforms.*
