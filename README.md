@@ -4,7 +4,7 @@ Plant leaf disease detection application built using .NET MAUI, C# and third par
 <kbd>DIAGRAM of App pages with center alignment</kbd>
 ### Getting Started
 * After opening this repository in Visual Studio 2022, create an appsettings.json file within the project. The file should be in this format:
-    ```
+    ```js
     {
       "CustomVision": {
         "EndPoint": "",
