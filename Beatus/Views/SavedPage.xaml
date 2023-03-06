@@ -5,7 +5,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converters="clr-namespace:CommunityToolkit.Maui.Converters;assembly=CommunityToolkit.Maui"
     xmlns:model="clr-namespace:Beatus.Models"
-    xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
     xmlns:viewmodel="clr-namespace:Beatus.ViewModels"
     x:DataType="viewmodel:SavedViewModel"
     BackgroundImageSource="bg.jpg"
@@ -80,25 +79,14 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-
-
-        <VerticalStackLayout Grid.Row="1" 
-                IsVisible="{Binding IsPredictionEmpty}"
-                HorizontalOptions="Center"
-                VerticalOptions="Center" 
-                             >
-            <skia:SKLottieView Source="emptyanimation.json"
-                               HeightRequest="200"
-                               RepeatCount="-1"/>
-
-
-            <Label
-                FontAttributes="Bold"
-                FontSize="Small"
-                HorizontalOptions="Center"
-                Text="No saved predictions"
-                TextColor="White"
-                VerticalOptions="Center" />
-        </VerticalStackLayout>
+        <Label
+            Grid.Row="1"
+            FontAttributes="Bold"
+            FontSize="Small"
+            HorizontalOptions="Center"
+            IsVisible="{Binding IsPredictionEmpty}"
+            Text="No saved predictions"
+            TextColor="White"
+            VerticalOptions="Center" />
     </Grid>
 </ContentPage>

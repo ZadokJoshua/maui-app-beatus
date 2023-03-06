@@ -8,11 +8,9 @@
     x:DataType="viewmodel:MainViewModel"
     BackgroundImageSource="bg.jpg"
     Shell.NavBarIsVisible="False">
-
     <ContentPage.Behaviors>
         <mct:StatusBarBehavior StatusBarColor="#050705" />
     </ContentPage.Behaviors>
-
     <ScrollView>
         <Grid Margin="20" RowDefinitions="Auto,*">
             <VerticalStackLayout Grid.Row="0" Spacing="6">
@@ -24,8 +22,8 @@
                         VerticalOptions="Center"
                         WidthRequest="40" />
                     <Label
-                        Margin="4,0"
                         Grid.Column="1"
+                        Margin="4,0"
                         FontFamily="OpenSansSemibold"
                         FontSize="30"
                         Text="Beatus"
@@ -46,13 +44,10 @@
                     Text="Plant Leaf Disease Detection"
                     TextColor="White" />
             </VerticalStackLayout>
-
-
             <VerticalStackLayout
                 Grid.Row="1"
                 Spacing="5"
                 VerticalOptions="Center">
-
                 <Label
                     FontSize="Small"
                     HorizontalOptions="Center"
@@ -119,7 +114,7 @@
                     BackgroundColor="#1D2021"
                     Command="{Binding MakePredictionCommand}"
                     Style="{StaticResource ButtonStyle}"
-                    Text="Make Prediction"/>
+                    Text="Make Prediction" />
             </VerticalStackLayout>
         </Grid>
     </ScrollView>

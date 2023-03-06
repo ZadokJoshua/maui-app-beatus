@@ -363,3 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 /Beatus.Maui/appsettings.json
 /Beatus/appsettings.json
+/Beatus/myapp.keystore
+/Beatus/mykeyStoreConfig.txt

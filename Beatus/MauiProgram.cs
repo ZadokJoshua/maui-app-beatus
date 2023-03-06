@@ -6,7 +6,6 @@ using CommunityToolkit.Maui;
 using Beatus.Services.Interfaces;
 using Beatus.ViewModels;
 using Beatus.Views;
-using SkiaSharp.Views.Maui.Controls.Hosting;
 
 namespace Beatus
 {
@@ -18,13 +17,12 @@ namespace Beatus
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
-                .UseSkiaSharp()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
-
+            
             // Register Configuration
             var a = Assembly.GetExecutingAssembly();
             using var stream = a.GetManifestResourceStream("Beatus.appsettings.json");

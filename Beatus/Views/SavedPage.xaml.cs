@@ -11,7 +11,7 @@ public partial class SavedPage : ContentPage
 		InitializeComponent();
 
         _savedViewModel = savedViewModel;
-        BindingContext = savedViewModel;
+        BindingContext = _savedViewModel;
     }
 
     protected override async void OnAppearing()
