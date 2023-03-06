@@ -1,13 +1,18 @@
 ### Beatus
 Plant leaf disease detection application built using .NET MAUI, C# and third party tools like Custom Vision AI and Open AI-GPT3.
 
-<kbd align="center">
+
 <p align="center">
+<kbd>
 <img src="/Images/20230306_161402.jpg" Height=250/>
-<img src="/Images/20230306_161434.jpg" Height=250/>
-<img src="/Images/20230306_161223.jpg" Height=250/>
-</p>
 </kbd>
+<kbd>
+<img src="/Images/20230306_162630.jpg" Height=250/>
+</kbd>
+<kbd>
+<img src="/Images/20230306_161223.jpg" Height=250/>
+</kbd>
+</p>
 
 ### Getting Started
 * After opening this repository in Visual Studio 2022, create an appsettings.json file within the project. The file should be in this format:
