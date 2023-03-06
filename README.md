@@ -14,21 +14,6 @@ Plant leaf disease detection application built using .NET MAUI, C# and third par
 </kbd>
 </p>
 
-<table align="center">
-  <tr>
-    <td> 
-      <img src="/Images/20230306_161402.jpg" Height=300/>
-    </td>
-    <td>
-      <img src="/Images/20230306_162630.jpg" Height=300/>
-    </td>
-    <td>
-      <img src="/Images/20230306_161223.jpg" Height=300/>
-    </td>
-  </tr>
-</table>
-
-
 ### Getting Started
 * After opening this repository in Visual Studio 2022, create an appsettings.json file within the project. The file should be in this format:
     ```js
@@ -43,6 +28,7 @@ Plant leaf disease detection application built using .NET MAUI, C# and third par
       }
     }
     ```
+    
 ### Datasets:
 * Tomato leaf diseases - https://data.mendeley.com/datasets/369cky7n39/1
 * Cassava leaf diseases - https://data.mendeley.com/datasets/3832tx2cb2
