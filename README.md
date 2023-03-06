@@ -1,11 +1,11 @@
 ### Beatus
 Plant leaf disease detection application built using .NET MAUI, C# and third party tools like Custom Vision AI and Open AI-GPT3.
 
-<kbd>
+<kbd align="center">
 <p align="center">
-<img src="/Images/20230306_161402.jpg" />
-<img src="/Images/20230306_161434.jpg" />
-<img src="/Images/20230306_161223.jpg" />
+<img src="/Images/20230306_161402.jpg" Height=250/>
+<img src="/Images/20230306_161434.jpg" Height=250/>
+<img src="/Images/20230306_161223.jpg" Height=250/>
 </p>
 </kbd>
 
