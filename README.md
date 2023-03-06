@@ -1,4 +1,4 @@
-### Beatus
+## Beatus
 A .NET MAUI Plant leaf disease detection application. This application leverages third-party tools like Custom Vision AI and Open AI-GPT3.
 
 
