@@ -3,7 +3,9 @@ Plant leaf disease detection application built using .NET MAUI, C# and third par
 
 <kbd>
 <p align="center">
-<img src="https://user-images.githubusercontent.com/65626254/212429512-61264310-43b1-4b82-92e9-ebc6bcf77700.png" width="150" height="150" />
+<img src="/Images/20230306_161402.jpg" />
+<img src="/Images/20230306_161434.jpg" />
+<img src="/Images/20230306_161223.jpg" />
 </p>
 </kbd>
 
