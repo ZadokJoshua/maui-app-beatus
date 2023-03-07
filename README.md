@@ -1,5 +1,5 @@
 # Beatus
-This plant leaf disease detection application was built using .NET MAUI, C#, and third-party tools such as Custom Vision AI and OpenAI GPT-3. The custom vision model used in the application was trained using labeled images of tomato, cassava, and corn leaf diseases.
+This plant leaf disease detection application built with .NET MAUI, C#, and third-party tools such as Custom Vision AI and OpenAI GPT-3. The custom vision model used in the application was trained using labeled images of tomato, cassava, and corn leaf diseases.
 
 When the model makes a correct prediction, the application passes the Tagname obtained to the OpenAI GPT-3 API. OpenAI GPT-3 generates recommended tips for the current condition of the plant, providing valuable insights into how best to manage the disease and ensure the plant's health. Predictions can also be saved to an SQLite database for off-line access.
 
