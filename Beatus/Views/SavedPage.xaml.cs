@@ -19,13 +19,14 @@ public partial class SavedPage : ContentPage
     {
         base.OnAppearing();
 
+        using var cts = new CancellationTokenSource();
+        cts.CancelAfter(TimeSpan.FromSeconds(5));
+
         try
         {
-            _savedViewModel.IsBusy = true;
-            await _savedViewModel.LoadSavedPredictions();
-            _savedViewModel.IsBusy = false;
+            await (BindingContext as SavedViewModel)?.LoadSavedPredictions();
         }
-        catch (Exception ex)
+        catch (OperationCanceledException ex)
         {
             Debug.WriteLine(ex);
         }

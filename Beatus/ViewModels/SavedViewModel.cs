@@ -29,12 +29,14 @@ public partial class SavedViewModel : ObservableObject
 
     public async Task LoadSavedPredictions()
     {
+        IsBusy = true;
         var predictions = await _dataService.GetAllSavedPredictionsAsync();
         SavedPredictions?.Clear();
 
         if (!predictions.Any())
         {
             IsPredictionEmpty = true;
+            IsBusy = false;
             return;
         }
         
@@ -42,7 +44,9 @@ public partial class SavedViewModel : ObservableObject
         {
             SavedPredictions?.Add(prediction);
         }
+
         IsPredictionEmpty = false;
+        IsBusy = false;
     }
 
     [RelayCommand]
