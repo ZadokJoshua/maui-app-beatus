@@ -6,12 +6,13 @@
     xmlns:mct="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
     xmlns:viewmodel="clr-namespace:Beatus.ViewModels"
     x:DataType="viewmodel:MainViewModel"
-    BackgroundImageSource="bg.jpg"
     Shell.NavBarIsVisible="False"
     Shell.PresentationMode="Modal">
+    
     <ContentPage.Behaviors>
         <mct:StatusBarBehavior StatusBarColor="#050705" />
     </ContentPage.Behaviors>
+    
     <ScrollView>
         <Grid Margin="20" RowDefinitions="Auto,*">
             <VerticalStackLayout Grid.Row="0" Spacing="6">

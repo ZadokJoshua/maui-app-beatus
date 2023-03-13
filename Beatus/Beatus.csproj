@@ -31,6 +31,12 @@
 		<AndroidSigningKeyStore>myapp.keystore</AndroidSigningKeyStore>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android|AnyCPU'">
+	  <RunAOTCompilation>True</RunAOTCompilation>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android|AnyCPU'" />
+
 	<ItemGroup>
 		<!-- App Icon -->
     <MauiIcon Include="Resources\AppIcon\appicon.svg" />
@@ -74,6 +80,7 @@
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+		<PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
 		<PackageReference Include="SkiaSharp.Views.Maui.Core" Version="2.88.3" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
 		<PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.4" />

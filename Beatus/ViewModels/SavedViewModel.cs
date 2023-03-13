@@ -4,11 +4,12 @@ using Beatus.Models;
 using Beatus.Services.Interfaces;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MvvmHelpers;
 using System.Collections.ObjectModel;
 
 namespace Beatus.ViewModels;
 
-public partial class SavedViewModel : ObservableObject
+public partial class SavedViewModel : CommunityToolkit.Mvvm.ComponentModel.ObservableObject
 {
     private readonly IDataService _dataService;
 
@@ -18,35 +19,43 @@ public partial class SavedViewModel : ObservableObject
     private bool isBusy;
     [ObservableProperty]
     private bool isPredictionEmpty;
-    [ObservableProperty]
-    private ObservableCollection<PredictionDetailsEntity>? savedPredictions;
+
+    public ObservableRangeCollection<PredictionDetailsEntity>? SavedPredictions { get; set; } = new();
 
     public SavedViewModel(IDataService dataService)
     {
         _dataService = dataService;
-        SavedPredictions = new ObservableCollection<PredictionDetailsEntity>();
+
+        LoadSavedPredictions();
     }
 
-    public async Task LoadSavedPredictions()
+    public void LoadSavedPredictions()
     {
-        IsBusy = true;
-        var predictions = await _dataService.GetAllSavedPredictionsAsync();
         SavedPredictions?.Clear();
+        IsBusy = true;
 
-        if (!predictions.Any())
+        Task.Run(async () =>
         {
-            IsPredictionEmpty = true;
-            IsBusy = false;
-            return;
-        }
+            var predictions = await _dataService.GetAllSavedPredictionsAsync();
+
+            Shell.Current.Dispatcher.Dispatch(() =>
+            {
+                SavedPredictions?.ReplaceRange(predictions);
+
+                if (SavedPredictions?.Count == 0)
+                {
+                    IsPredictionEmpty = true;
+                    IsBusy = false;
+                }
+                else
+                {
+                    IsPredictionEmpty = false;
+                    IsBusy = false;
+                }
+
+            });
+        });
         
-        foreach (var prediction in predictions)
-        {
-            SavedPredictions?.Add(prediction);
-        }
-
-        IsPredictionEmpty = false;
-        IsBusy = false;
     }
 
     [RelayCommand]

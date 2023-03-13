@@ -101,12 +101,12 @@ public partial class MainViewModel : ObservableObject
         
         try
         {
-            if (accessType == NetworkAccess.Internet)
+            if (ImageSelected)
             {
-                if (!ImageSelected)
+                if (accessType == NetworkAccess.None || accessType == NetworkAccess.Unknown)
                 {
-                    await Shell.Current.DisplayAlert("No Image Selected", "Please select or capture an image", "OK");
-                    return;
+                    await Shell.Current.DisplayAlert("No Internet Connection", "Please check your Internet connection", "OK");
+                    return; 
                 }
 
                 var resizedPhoto = await ResizeImage(SelectedPhoto);
@@ -138,7 +138,7 @@ public partial class MainViewModel : ObservableObject
             }
             else
             {
-                await Shell.Current.DisplayAlert("No Internet Connection", "Please check your Internet connection", "OK");
+                await Shell.Current.DisplayAlert("No Image Selected", "Please select or capture an image", "OK");
             }
         }
         catch (Exception)

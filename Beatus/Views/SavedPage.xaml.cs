@@ -15,18 +15,15 @@ public partial class SavedPage : ContentPage
         BindingContext = _savedViewModel;
     }
 
-    protected override async void OnAppearing()
+    protected override void OnAppearing()
     {
         base.OnAppearing();
 
-        using var cts = new CancellationTokenSource();
-        cts.CancelAfter(TimeSpan.FromSeconds(5));
-
         try
         {
-            await (BindingContext as SavedViewModel)?.LoadSavedPredictions();
+            _savedViewModel.LoadSavedPredictions();
         }
-        catch (OperationCanceledException ex)
+        catch (Exception ex)
         {
             Debug.WriteLine(ex);
         }
