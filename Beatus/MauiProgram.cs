@@ -28,28 +28,6 @@ namespace Beatus
                 .RegisterAppServices()
                 .RegisterConfigFile();
             
-            //// Register Configuration
-            //var a = Assembly.GetExecutingAssembly();
-            //using var stream = a.GetManifestResourceStream("Beatus.appsettings.json");
-            //var config = new ConfigurationBuilder().AddJsonStream(stream).Build();
-            //builder.Services.AddSingleton<IConfiguration>(config);
-
-            //// Register Views
-            //builder.Services.AddSingleton<DetailsPage>();
-            //builder.Services.AddSingleton<SavedPage>();
-            //builder.Services.AddSingleton<MainPage>();
-
-            //// Register ViewModels
-            //builder.Services.AddSingleton<MainViewModel>();
-            //builder.Services.AddSingleton<DetailsViewModel>();
-            //builder.Services.AddSingleton<SavedViewModel>();
-
-            //// Register Services
-            //builder.Services.AddScoped<OpenAiService>();
-            //builder.Services.AddScoped<CustomVisionAIService>();
-            //builder.Services.AddScoped<IDataService, DataService>();
-
-
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
