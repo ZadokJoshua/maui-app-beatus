@@ -9,14 +9,12 @@ using System.Collections.ObjectModel;
 
 namespace Beatus.ViewModels;
 
-public partial class SavedViewModel : CommunityToolkit.Mvvm.ComponentModel.ObservableObject
+public partial class SavedViewModel : BaseViewModel
 {
     private readonly IDataService _dataService;
 
     [ObservableProperty]
     private PredictionDetailsEntity? selectedPrediction;
-    [ObservableProperty]
-    private bool isBusy;
     [ObservableProperty]
     private bool isPredictionEmpty;
 

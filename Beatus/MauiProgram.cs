@@ -6,6 +6,7 @@ using CommunityToolkit.Maui;
 using Beatus.Services.Interfaces;
 using Beatus.ViewModels;
 using Beatus.Views;
+using Beatus.Extensions;
 
 namespace Beatus
 {
@@ -21,28 +22,32 @@ namespace Beatus
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+                })
+                .RegisterViews()
+                .RegisterViewModels()
+                .RegisterAppServices()
+                .RegisterConfigFile();
             
-            // Register Configuration
-            var a = Assembly.GetExecutingAssembly();
-            using var stream = a.GetManifestResourceStream("Beatus.appsettings.json");
-            var config = new ConfigurationBuilder().AddJsonStream(stream).Build();
-            builder.Services.AddSingleton<IConfiguration>(config);
+            //// Register Configuration
+            //var a = Assembly.GetExecutingAssembly();
+            //using var stream = a.GetManifestResourceStream("Beatus.appsettings.json");
+            //var config = new ConfigurationBuilder().AddJsonStream(stream).Build();
+            //builder.Services.AddSingleton<IConfiguration>(config);
 
-            // Register Views
-            builder.Services.AddSingleton<DetailsPage>();
-            builder.Services.AddSingleton<SavedPage>();
-            builder.Services.AddSingleton<MainPage>();
+            //// Register Views
+            //builder.Services.AddSingleton<DetailsPage>();
+            //builder.Services.AddSingleton<SavedPage>();
+            //builder.Services.AddSingleton<MainPage>();
 
-            // Register ViewModels
-            builder.Services.AddSingleton<MainViewModel>();
-            builder.Services.AddSingleton<DetailsViewModel>();
-            builder.Services.AddSingleton<SavedViewModel>();
+            //// Register ViewModels
+            //builder.Services.AddSingleton<MainViewModel>();
+            //builder.Services.AddSingleton<DetailsViewModel>();
+            //builder.Services.AddSingleton<SavedViewModel>();
 
-            // Register Services
-            builder.Services.AddScoped<OpenAiService>();
-            builder.Services.AddScoped<CustomVisionAIService>();
-            builder.Services.AddScoped<IDataService, DataService>();
+            //// Register Services
+            //builder.Services.AddScoped<OpenAiService>();
+            //builder.Services.AddScoped<CustomVisionAIService>();
+            //builder.Services.AddScoped<IDataService, DataService>();
 
 
 #if DEBUG

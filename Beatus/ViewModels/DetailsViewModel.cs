@@ -9,7 +9,7 @@ namespace Beatus.ViewModels;
 [QueryProperty(nameof(PredictionDetails), "PredictionDetails")]
 [QueryProperty(nameof(IsOpenedFromMainPage), "IsOpenedFromMainPage")]
 [QueryProperty(nameof(EntityId), "EntityId")]
-public partial class DetailsViewModel : ObservableObject
+public partial class DetailsViewModel : BaseViewModel
 {
     private PredictionDetails predictionDetails;
     private readonly IDataService _dataService;
@@ -40,10 +40,10 @@ public partial class DetailsViewModel : ObservableObject
 
 
     [RelayCommand]
-    public void PreviousPage() => Shell.Current.GoToAsync("..");
+    private void PreviousPage() => Shell.Current.GoToAsync("..");
 
     [RelayCommand]
-    public async Task SavePrediction()
+    private async Task SavePrediction()
     {
         PredictionDetailsEntity entity = new()
         {
@@ -65,7 +65,7 @@ public partial class DetailsViewModel : ObservableObject
     }
     
     [RelayCommand]
-    public async Task DeletePrediction()
+    private async Task DeletePrediction()
     {
         bool deletePrediction = await Shell.Current.DisplayAlert("Delete", "Do you want to delete this prediction?", "Yes", "No");
 

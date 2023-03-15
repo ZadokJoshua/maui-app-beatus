@@ -2,13 +2,11 @@
 using Beatus.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 using SkiaSharp;
 
 namespace Beatus.ViewModels;
 
-public partial class MainViewModel : ObservableObject
+public partial class MainViewModel : BaseViewModel
 {
     private const int ImageMaxSizeBytes = 4194304;
     private const int ImageMaxResolution = 1024;
@@ -60,19 +58,6 @@ public partial class MainViewModel : ObservableObject
         }
     }
 
-    private bool isBusy;
-
-    public bool IsBusy
-    {
-        get { return isBusy; }
-        set
-        {
-            isBusy = value;
-            OnPropertyChanged(nameof(IsBusy));
-        }
-    }
-
-
     [RelayCommand]
     private Task ExecutePickPhoto() => SelectPhotoAsync(false);
 
@@ -94,7 +79,7 @@ public partial class MainViewModel : ObservableObject
 
     
     [RelayCommand]
-    public async Task MakePredictionAsync()
+    private async Task MakePredictionAsync()
     {
         IsBusy = true;
         NetworkAccess accessType = Connectivity.Current.NetworkAccess;
