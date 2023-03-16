@@ -41,7 +41,7 @@ To get started, follow these steps:
 The custom vision model was trained using the following datasets:
 * Tomato leaf diseases - https://data.mendeley.com/datasets/369cky7n39/1
 * Cassava leaf diseases - https://data.mendeley.com/datasets/3832tx2cb2
-* New Plant Diseases Dataset (Corn) - https://www.kaggle.com/datasets/vipoooool/new-plant-diseases-dataset?resource=download
+* New Plant Diseases Dataset (Maize) - https://www.kaggle.com/datasets/vipoooool/new-plant-diseases-dataset?resource=download
 
 #
 *Please note that the app has not been tested on Mac or iOS devices, although it was developed using .NET MAUI, which is a cross-platform framework, it's still possible that some features may not work as expected on these platforms.*
