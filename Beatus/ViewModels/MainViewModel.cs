@@ -13,7 +13,7 @@ public partial class MainViewModel : BaseViewModel
 
     private readonly OpenAiService _openAi;
     private readonly CustomVisionAIService _customVisionAI;
-
+    
     public MainViewModel(OpenAiService openAi, CustomVisionAIService customVisionAI)
     {
         _openAi = openAi;
@@ -71,7 +71,6 @@ public partial class MainViewModel : BaseViewModel
 
         if (SelectedPhoto != null)
         {
-
             Photo = SelectedPhoto.FullPath;
             ImageSelected = true;
         }
@@ -88,7 +87,7 @@ public partial class MainViewModel : BaseViewModel
         {
             if (ImageSelected)
             {
-                if (accessType == NetworkAccess.None || accessType == NetworkAccess.Unknown)
+                if (accessType is NetworkAccess.None or NetworkAccess.Unknown)
                 {
                     await Shell.Current.DisplayAlert("No Internet Connection", "Please check your Internet connection", "OK");
                     return; 
@@ -146,7 +145,7 @@ public partial class MainViewModel : BaseViewModel
     }
 
     /// <summary>
-    /// Resize the image to a max resolution of 1024x1024
+    /// Resize selected image because Custom Vision AI only accepts images of 4MB or less and 1024x1024 pixels 
     /// </summary>
     /// <param name="photo"></param>
     /// <returns>Byte Array</returns>

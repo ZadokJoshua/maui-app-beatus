@@ -80,7 +80,7 @@ public partial class DetailsViewModel : BaseViewModel
             }
             catch (Exception)
             {
-                await Shell.Current.DisplayAlert("Error", "Something went wrong", "OK");    
+                await Shell.Current.DisplayAlert("Error", "Something went wrong", "OK");
             }
         }
     }
