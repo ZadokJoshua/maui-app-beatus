@@ -8,4 +8,8 @@ public class PredictionDetailsEntity : PredictionDetails
     [PrimaryKey, AutoIncrement]
     public int Id { get; set; }
     public DateTime DateAdded { get; set; } = DateTime.Now;
+
+    public PredictionDetailsEntity()
+    {
+    }
 }

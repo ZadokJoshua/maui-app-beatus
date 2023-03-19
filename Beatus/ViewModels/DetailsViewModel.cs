@@ -52,7 +52,7 @@ public partial class DetailsViewModel : BaseViewModel
             Probability = PredictionDetails.Probability,
             Recommendation = PredictionDetails.Recommendation
         };
-
+        
         try
         {
             await _dataService.SavePrediction(entity);

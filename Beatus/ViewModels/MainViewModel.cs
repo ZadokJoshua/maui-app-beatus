@@ -13,14 +13,16 @@ public partial class MainViewModel : BaseViewModel
 
     private readonly OpenAiService _openAi;
     private readonly CustomVisionAIService _customVisionAI;
-    
+
+    private ImageSource photo;
+    private bool imageSelected;
+    private FileResult selectedPhoto;
+
     public MainViewModel(OpenAiService openAi, CustomVisionAIService customVisionAI)
     {
         _openAi = openAi;
         _customVisionAI = customVisionAI;
     }
-
-    private ImageSource photo;
 
     public ImageSource Photo
     {
@@ -32,9 +34,6 @@ public partial class MainViewModel : BaseViewModel
         }
     }
 
-
-    private bool imageSelected;
-
     public bool ImageSelected
     {
         get { return imageSelected; }
@@ -44,9 +43,6 @@ public partial class MainViewModel : BaseViewModel
             OnPropertyChanged(nameof(ImageSelected));
         }
     }
-
-
-    private FileResult selectedPhoto;
 
     public FileResult SelectedPhoto
     {
