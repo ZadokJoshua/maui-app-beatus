@@ -36,13 +36,11 @@ public partial class DetailsViewModel : BaseViewModel
 
     public ImageSource PlantImage => ImageSource.FromStream(() => new MemoryStream(PredictionDetails.PlantImage));
     #endregion
-
-    #region Constructor
+    
     public DetailsViewModel(IDataService dataService)
     {
         _dataService = dataService;
     }
-    #endregion
 
     #region Commands
     [RelayCommand]

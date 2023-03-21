@@ -19,16 +19,14 @@ public class CustomVisionAIService
         {
             client.DefaultRequestHeaders.Add("Prediction-Key", _config["CustomVision:Key"]);
 
-            using (var content = new ByteArrayContent(imageBytes))
-            {
-                content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+            using var content = new ByteArrayContent(imageBytes);
+            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
 
-                var response = await client.PostAsync(_config["CustomVision:EndPoint"], content);
-                var responseString = await response.Content.ReadAsStringAsync();
-                Prediction prediction = JsonConvert.DeserializeObject<CustomVisionResponse>(responseString).Predictions?.OrderByDescending(x => x.Probability).FirstOrDefault();
+            var response = await client.PostAsync(_config["CustomVision:EndPoint"], content);
+            var responseString = await response.Content.ReadAsStringAsync();
+            Prediction prediction = JsonConvert.DeserializeObject<CustomVisionResponse>(responseString).Predictions?.OrderByDescending(x => x.Probability).FirstOrDefault();
 
-                return prediction;
-            }
+            return prediction;
         }
 
     }
