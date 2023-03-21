@@ -19,35 +19,47 @@ public partial class SavedViewModel : BaseViewModel
         LoadSavedPredictions();
     }
 
-    public ObservableRangeCollection<PredictionDetailsEntity>? SavedPredictions { get; set; } = new();
+    [ObservableProperty]
+    private PredictionDetailsEntity? selectedPrediction;
+    
+    [ObservableProperty]
+    private bool isPredictionEmpty;
+
+    public ObservableRangeCollection<PredictionDetailsEntity> SavedPredictions { get; set; } = new();
 
     public void LoadSavedPredictions()
     {
-        SavedPredictions?.Clear();
+        SavedPredictions.Clear();
         IsBusy = true;
 
         Task.Run(async () =>
         {
-            var predictions = await _dataService.GetAllSavedPredictionsAsync();
-
-            Shell.Current.Dispatcher.Dispatch(() =>
+            try
             {
-                SavedPredictions?.ReplaceRange(predictions);
-
-                if (SavedPredictions?.Count == 0)
+                var predictions = await _dataService.GetAllSavedPredictionsAsync();
+                
+                Shell.Current.Dispatcher.Dispatch(() =>
                 {
-                    IsPredictionEmpty = true;
-                    IsBusy = false;
-                }
-                else
-                {
-                    IsPredictionEmpty = false;
-                    IsBusy = false;
-                }
-
-            });
+                    if (predictions != null && predictions.Any())
+                    {
+                        SavedPredictions.ReplaceRange(predictions);
+                        IsPredictionEmpty = false;
+                    }
+                    else
+                    {
+                        IsPredictionEmpty = true;
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         });
-        
     }
     
     [RelayCommand]
