@@ -13,19 +13,13 @@ public partial class SavedViewModel : BaseViewModel
 {
     private readonly IDataService _dataService;
 
-    [ObservableProperty]
-    private PredictionDetailsEntity? selectedPrediction;
-    [ObservableProperty]
-    private bool isPredictionEmpty;
-
-    public ObservableRangeCollection<PredictionDetailsEntity>? SavedPredictions { get; set; } = new();
-
     public SavedViewModel(IDataService dataService)
     {
         _dataService = dataService;
-
         LoadSavedPredictions();
     }
+
+    public ObservableRangeCollection<PredictionDetailsEntity>? SavedPredictions { get; set; } = new();
 
     public void LoadSavedPredictions()
     {
@@ -55,7 +49,7 @@ public partial class SavedViewModel : BaseViewModel
         });
         
     }
-
+    
     [RelayCommand]
     async Task ViewPredictionDetails()
     {

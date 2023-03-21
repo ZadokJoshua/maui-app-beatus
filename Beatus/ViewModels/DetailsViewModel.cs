@@ -11,10 +11,17 @@ namespace Beatus.ViewModels;
 [QueryProperty(nameof(EntityId), "EntityId")]
 public partial class DetailsViewModel : BaseViewModel
 {
+    #region Fields
     private PredictionDetails predictionDetails;
     private readonly IDataService _dataService;
+    #endregion
 
-    public ImageSource PlantImage => ImageSource.FromStream(() => new MemoryStream(PredictionDetails.PlantImage));
+    #region Properties
+    [ObservableProperty]
+    private bool isOpenedFromMainPage;
+
+    [ObservableProperty]
+    private int entityId;
 
     public PredictionDetails PredictionDetails
     {
@@ -27,18 +34,17 @@ public partial class DetailsViewModel : BaseViewModel
         }
     }
 
-    [ObservableProperty]
-    private bool isOpenedFromMainPage;
+    public ImageSource PlantImage => ImageSource.FromStream(() => new MemoryStream(PredictionDetails.PlantImage));
+    #endregion
 
-    [ObservableProperty]
-    private int entityId;
-
+    #region Constructor
     public DetailsViewModel(IDataService dataService)
     {
         _dataService = dataService;
     }
+    #endregion
 
-
+    #region Commands
     [RelayCommand]
     private void PreviousPage() => Shell.Current.GoToAsync("..");
 
@@ -84,4 +90,5 @@ public partial class DetailsViewModel : BaseViewModel
             }
         }
     }
+    #endregion
 }

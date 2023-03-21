@@ -8,6 +8,7 @@ namespace Beatus.ViewModels;
 
 public partial class MainViewModel : BaseViewModel
 {
+    #region Fields
     private const int ImageMaxSizeBytes = 4194304;
     private const int ImageMaxResolution = 1024;
 
@@ -17,13 +18,15 @@ public partial class MainViewModel : BaseViewModel
     private ImageSource photo;
     private bool imageSelected;
     private FileResult selectedPhoto;
-
+    #endregion
+    
     public MainViewModel(OpenAiService openAi, CustomVisionAIService customVisionAI)
     {
         _openAi = openAi;
         _customVisionAI = customVisionAI;
     }
 
+    #region Properties
     public ImageSource Photo
     {
         get { return photo; }
@@ -53,24 +56,14 @@ public partial class MainViewModel : BaseViewModel
             OnPropertyChanged(nameof(SelectedPhoto));
         }
     }
+    #endregion
 
+    #region Commands
     [RelayCommand]
     private Task ExecutePickPhoto() => SelectPhotoAsync(false);
 
     [RelayCommand]
     private Task ExecuteTakePhoto() => SelectPhotoAsync(true);
-
-    public async Task SelectPhotoAsync(bool useCamera)
-    {
-        SelectedPhoto = useCamera ? await MediaPicker.Default.CapturePhotoAsync()
-            : await MediaPicker.Default.PickPhotoAsync();
-
-        if (SelectedPhoto != null)
-        {
-            Photo = SelectedPhoto.FullPath;
-            ImageSelected = true;
-        }
-    }
 
     
     [RelayCommand]
@@ -140,11 +133,26 @@ public partial class MainViewModel : BaseViewModel
         ImageSelected = false;
     }
 
+    #endregion
+
+    #region Methods
+    public async Task SelectPhotoAsync(bool useCamera)
+    {
+        SelectedPhoto = useCamera ? await MediaPicker.Default.CapturePhotoAsync()
+            : await MediaPicker.Default.PickPhotoAsync();
+
+        if (SelectedPhoto != null)
+        {
+            Photo = SelectedPhoto.FullPath;
+            ImageSelected = true;
+        }
+    }
+
     /// <summary>
-    /// Resize selected image because Custom Vision AI only accepts images of 4MB or less and 1024x1024 pixels 
+    /// Resize selected image because Custom Vision AI only accepts images of 4MB max 
     /// </summary>
     /// <param name="photo"></param>
-    /// <returns>Byte Array</returns>
+    /// <returns>byte[]</returns>
     private async Task<byte[]> ResizeImage(FileResult photo)
     {
         byte[] result = null;
@@ -153,36 +161,25 @@ public partial class MainViewModel : BaseViewModel
         {
             if (stream.Length > ImageMaxSizeBytes)
             {
-                using (var skiaStream = new SKManagedStream(stream))
-                {
-                    using (var original = SKBitmap.Decode(skiaStream))
-                    {
-                        var aspectRatio = (float)original.Width / original.Height;
+                using var skiaStream = new SKManagedStream(stream);
+                using var original = SKBitmap.Decode(skiaStream);
+                var aspectRatio = (float)original.Width / original.Height;
 
-                        var newWidth = ImageMaxResolution;
-                        var newHeight = ImageMaxResolution / aspectRatio;
+                var newWidth = ImageMaxResolution;
+                var newHeight = ImageMaxResolution / aspectRatio;
 
-                        using (var resized = original.Resize(new SKImageInfo(newWidth, (int)newHeight), SKFilterQuality.High))
-                        {
-                            using (var image = SKImage.FromBitmap(resized))
-                            {
-                                using (var imageData = image.Encode(SKEncodedImageFormat.Jpeg, 100))
-                                {
-                                    result = imageData.ToArray();
-                                }
-                            }
-                        }
-                    }
-                }
+                using var resized = original.Resize(new SKImageInfo(newWidth, (int)newHeight), SKFilterQuality.High);
+                using var image = SKImage.FromBitmap(resized);
+                using var imageData = image.Encode(SKEncodedImageFormat.Jpeg, 100);
+                result = imageData.ToArray();
             }
             else
             {
-                using (var binaryReader = new BinaryReader(stream))
-                {
-                    result = binaryReader.ReadBytes((int)stream.Length);
-                }
+                using var binaryReader = new BinaryReader(stream);
+                result = binaryReader.ReadBytes((int)stream.Length);
             }
         }
         return result;
     }
+    #endregion
 }
