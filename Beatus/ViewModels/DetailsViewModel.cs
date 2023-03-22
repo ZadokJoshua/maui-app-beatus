@@ -12,7 +12,7 @@ namespace Beatus.ViewModels;
 public partial class DetailsViewModel : BaseViewModel
 {
     #region Fields
-    private PredictionDetails predictionDetails;
+    private PredictionDetails _predictionDetails;
     private readonly IDataService _dataService;
     #endregion
 
@@ -25,10 +25,10 @@ public partial class DetailsViewModel : BaseViewModel
 
     public PredictionDetails PredictionDetails
     {
-        get { return predictionDetails; }
+        get { return _predictionDetails; }
         set
         {
-            predictionDetails = value;
+            _predictionDetails = value;
             OnPropertyChanged(nameof(PredictionDetails));
             OnPropertyChanged(nameof(PlantImage));
         }

@@ -5,5 +5,5 @@ namespace Beatus.ViewModels;
 public abstract partial class BaseViewModel : ObservableObject
 {
     [ObservableProperty]
-    private bool isBusy;
+    private bool _isBusy;
 }

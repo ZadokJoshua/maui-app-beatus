@@ -9,15 +9,16 @@ namespace Beatus.ViewModels;
 public partial class MainViewModel : BaseViewModel
 {
     #region Fields
-    private const int ImageMaxSizeBytes = 4194304;
-    private const int ImageMaxResolution = 1024;
+    private const int _imageMaxSizeBytes = 4194304;
+    private const int _imageMaxResolution = 1024;
+    private const double _minimumAccuracyProbablilty = 0.7;
 
     private readonly OpenAiService _openAi;
     private readonly CustomVisionAIService _customVisionAI;
 
-    private ImageSource photo;
-    private bool imageSelected;
-    private FileResult selectedPhoto;
+    private ImageSource _photo;
+    private bool _imageSelected;
+    private FileResult _selectedPhoto;
     #endregion
     
     public MainViewModel(OpenAiService openAi, CustomVisionAIService customVisionAI)
@@ -29,30 +30,30 @@ public partial class MainViewModel : BaseViewModel
     #region Properties
     public ImageSource Photo
     {
-        get { return photo; }
+        get { return _photo; }
         set
         {
-            photo = value;
+            _photo = value;
             OnPropertyChanged(nameof(Photo));
         }
     }
 
     public bool ImageSelected
     {
-        get { return imageSelected; }
+        get { return _imageSelected; }
         set
         {
-            imageSelected = value;
+            _imageSelected = value;
             OnPropertyChanged(nameof(ImageSelected));
         }
     }
 
     public FileResult SelectedPhoto
     {
-        get { return selectedPhoto; }
+        get { return _selectedPhoto; }
         set
         {
-            selectedPhoto = value;
+            _selectedPhoto = value;
             OnPropertyChanged(nameof(SelectedPhoto));
         }
     }
@@ -69,6 +70,8 @@ public partial class MainViewModel : BaseViewModel
     [RelayCommand]
     private async Task MakePredictionAsync()
     {
+
+        // TO-DO: APPLY Single Responsibility Principle (SRP) to this method
         IsBusy = true;
         NetworkAccess accessType = Connectivity.Current.NetworkAccess;
         
@@ -87,13 +90,14 @@ public partial class MainViewModel : BaseViewModel
 
                 if (customVisionAIResponse is not null)
                 {
-                    if (customVisionAIResponse?.Probability < 0.7 || customVisionAIResponse?.TagName?.ToLower() == "negative")
+                    if (customVisionAIResponse.Probability < _minimumAccuracyProbablilty || customVisionAIResponse.TagName.ToLower() == "negative")
                     {
                         await Shell.Current.DisplayAlert("No Plant Detected", "Please try again with a different image", "OK");
                         return;
                     }
 
                     var openAiResponse = await _openAi.GetPlantTips(customVisionAIResponse.TagName);
+                    
                     var details = new PredictionDetails
                     {
                         PlantImage = resizedPhoto,
@@ -103,10 +107,10 @@ public partial class MainViewModel : BaseViewModel
                     };
 
                     await Shell.Current.GoToAsync("DetailsPage", new Dictionary<string, object>
-                {
-                    { nameof(PredictionDetails), details },
-                    { "IsOpenedFromMainPage", true }
-                });
+                    {
+                        { nameof(PredictionDetails), details },
+                        { "IsOpenedFromMainPage", true }
+                    });
                 }
             }
             else
@@ -159,14 +163,14 @@ public partial class MainViewModel : BaseViewModel
 
         using (var stream = await photo.OpenReadAsync())
         {
-            if (stream.Length > ImageMaxSizeBytes)
+            if (stream.Length > _imageMaxSizeBytes)
             {
                 using var skiaStream = new SKManagedStream(stream);
                 using var original = SKBitmap.Decode(skiaStream);
                 var aspectRatio = (float)original.Width / original.Height;
 
-                var newWidth = ImageMaxResolution;
-                var newHeight = ImageMaxResolution / aspectRatio;
+                var newWidth = _imageMaxResolution;
+                var newHeight = _imageMaxResolution / aspectRatio;
 
                 using var resized = original.Resize(new SKImageInfo(newWidth, (int)newHeight), SKFilterQuality.High);
                 using var image = SKImage.FromBitmap(resized);
