@@ -63,23 +63,24 @@ public partial class SavedViewModel : BaseViewModel
     }
     
     [RelayCommand]
-    async Task ViewPredictionDetails()
+    private async Task ViewPredictionDetails()
     {
         IsBusy = true;
-        
-        if (SelectedPrediction != null)
+        try
         {
-            PredictionDetails? prediction = new()
+            if (SelectedPrediction != null)
             {
-                PlantImage = SelectedPrediction.PlantImage,
-                TagName = SelectedPrediction.TagName,
-                Probability = SelectedPrediction.Probability,
-                Recommendation = SelectedPrediction.Recommendation
-            };
+                PredictionDetails? prediction = new()
+                {
+                    PlantImage = SelectedPrediction.PlantImage,
+                    TagName = SelectedPrediction.TagName,
+                    Probability = SelectedPrediction.Probability,
+                    Recommendation = SelectedPrediction.Recommendation
+                };
 
-        
-            await Shell.Current.GoToAsync("DetailsPage", new Dictionary<string, object>
-            {
+
+                await Shell.Current.GoToAsync("DetailsPage", new Dictionary<string, object>
+                {
                 {
                     "PredictionDetails", prediction
                 },
@@ -89,9 +90,16 @@ public partial class SavedViewModel : BaseViewModel
                 {
                     "EntityId", SelectedPrediction.Id
                 }
-            }); 
+            });
+            }
         }
-
-        IsBusy = false;
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        finally
+        {
+            IsBusy = false;
+        }
     }
 }
